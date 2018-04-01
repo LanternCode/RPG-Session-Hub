@@ -1,0 +1,77 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    background-color: #ededed;
+}
+
+.foot{
+    position: absolute;
+     bottom: 0;
+     right: 0;
+}
+
+.link--upgrade{
+    color: white;
+}
+
+.homepage--body{
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 44%;
+}
+
+.homepage--login__form{
+    max-width: 250px;
+    border: 1px solid black;
+    padding: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.session--hub{
+    text-align: center;
+}
+
+.roll__bold{
+    font-weight:bold;
+}
+
+.hub--avatar{
+    height: 70%;
+    width: 70%;
+}
+
+.shortened{
+    height: 1000%;
+}
+
+.roll--form{
+    border: 1px solid black;
+
+}
+
+.padded{
+    padding: 25px;
+}
+
+.homepage--logo{
+    text-align: center;
+    margin-top: 100px;
+}
+
+.create--error{
+    color: red;
+}
+
+.session--copyright--box{
+    position:relative;
+}
+
+.session--copyright{
+    position:absolute;
+    bottom:0;
+    right:0;
+}
