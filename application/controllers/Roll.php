@@ -40,7 +40,7 @@ class Roll extends CI_Controller {
 
 		$data = [];
 		$data['body'] = 'rolllist';
-		$data['title'] = 'CYBERPUNK ROLLS || Session Hub';
+		$data['title'] = 'Roll History || Session Hub';
 		$data['rolls'] = $this->Roll_model->Get_Roll_History();
 
 		$this->load->view('templates/main',$data);

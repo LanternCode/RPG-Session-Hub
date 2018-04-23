@@ -7,6 +7,10 @@ $route['roll'] = "Roll";
 $route['sesyjka'] = 'Session';
 $route['logout'] = 'Session/close';
 $route['listrolls'] = 'Roll/getrolls';
+
+$route['session/edit/newuser'] = 'Editor/name';
+
+//Related to session-creation
 $route['new'] = 'Home/newsession';
 $route['SessionCreator'] = 'Creator/create_one';
 $route['SessionCreator2'] = 'Creator/create_two';

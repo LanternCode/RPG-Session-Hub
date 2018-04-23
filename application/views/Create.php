@@ -18,17 +18,15 @@
             echo("<h4 class='create--error'>The highest participant count is 24.</h4>"); } ?>
             <br>
 
-            <!--
-                <label>Session type:</label><br>
-                <label>
-                    <input type="radio" name="session_type" value="1" checked />Basic
-                </label>
-                <br>
-                <label>
-                    <input type="radio" name="session_type" value="2" />Premium
-                </label>
-                <br><br>
-            -->
+            <label>Session type:</label><br>
+            <label>
+                <input type="radio" name="session_type" value="1" checked />Basic
+            </label>
+            <br>
+            <label>
+                <input type="radio" name="session_type" value="2" />Protected
+            </label>
+            <br><br>
 
             <input type="submit" class="btn btn-info" value="Create session!" />
 

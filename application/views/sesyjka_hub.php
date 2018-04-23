@@ -1,9 +1,30 @@
 <?php $this->load->helper('quote_helper'); ?>
 <div class="session--hub">
-    <p>[<a href="<?=base_url('index.php/logout')?>">Swap sessions</a>]</p><br><br>
+    <p>[<a href="<?=base_url('index.php/logout')?>">Swap sessions</a>]</p><br>
 
-    <?php if($session->quotes){ ?>
-        <p>Quote of the day: <?=Get_daily_quote()?></p><br><br>
+    <?php if($admin){?>
+
+        <p>[<a href="<?=base_url('index.php/logout')?>">Enable/Disable modules</a>]</p><br>
+        <p>[<a href="#" onclick="reveal_panel_1()">Add players</a>]</p><br>
+
+        <div id="addplayersform">
+            <form action="<?=base_url('index.php/session/edit/newuser')?>" method="POST">
+                <label>New user's name:</label><br>
+                <input type="text" name="add_user_name" required /><br><br>
+                <label>New user's avatar link:</label><br>
+                <input type="text" name="add_user_avatar" /><br><br>
+                <input type="submit" value="Add new user" /><br><br>
+            </form>
+        </div>
+
+        <p>[<a href="<?=base_url('index.php/logout')?>">Remove players</a>]</p><br>
+        <p>[<a href="<?=base_url('index.php/logout')?>">Change dices</a>]</p><br>
+        <p>[<a href="<?=base_url('index.php/logout')?>">Edit player names & avatars</a>]</p><br>
+
+    <?php } ?>
+
+    <?php if(isset($session->quotes) && $session->quotes){ ?>
+        <p>Random quote: <?=Get_daily_quote()?></p><br><br>
     <?php } ?>
 
     <p>The participants of the session: </p><br>
@@ -55,3 +76,11 @@
 <footer class="session--copyright--box">
     <p class="session--copyright">iLeanbox 2018 &copy; All rights reserved.</p>
 </footer>
+<script type="text/javascript">
+    function reveal_panel_1()
+    {
+        if(document.getElementById('addplayersform').style.display == 'block')
+        document.getElementById('addplayersform').style.display = 'none';
+        else document.getElementById('addplayersform').style.display = 'block';
+    }
+</script>

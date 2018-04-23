@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $sql = "SELECT session_id FROM identificators WHERE user_id = '$key' OR gm_id = '$key'";
             $query = $this->db->query($sql);
 
-            if($query) return 1;
+            if($query->row()->session_id) return 1;
             else return 0;
         }
 
@@ -42,5 +42,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $query->result();
 
         }
+
+		function Get_admin_key($session_id){
+
+			$sql = "SELECT gm_id FROM identificators WHERE session_id = $session_id";
+
+			$query = $this->db->query($sql);
+			return $query->row()->gm_id;
+		}
 
     }

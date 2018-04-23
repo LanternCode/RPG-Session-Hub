@@ -19,7 +19,7 @@ class Keycheck extends CI_Controller {
 		   }else{
 
 	           $data = [];
-	           $data['key'] = (isset($_POST['code'])) ? mysqli_real_escape_string($this->db->conn_id,$_POST['code']) : "";
+	           $data['key'] = (isset($_POST['code'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['code'])) : "";
 
 	           if(strlen($data['key']) > 0){
 

@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         function Get_daily_quote(){
 
-            $quote_num = rand(1, 60);
+            $quote_num = rand(1, 39);
 
             $sql = "SELECT quote FROM quotes WHERE id = $quote_num";
             $query = $this->db->query($sql);
