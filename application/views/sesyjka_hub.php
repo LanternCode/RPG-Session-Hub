@@ -4,8 +4,33 @@
 
     <?php if($admin){?>
 
-        <p>[<a href="<?=base_url('index.php/logout')?>">Enable/Disable modules</a>]</p><br>
-        <p>[<a href="#" onclick="reveal_panel_1()">Add players</a>]</p><br>
+        <p>[<a href="#" onclick="reveal_panel_modules()">Enable/Disable modules</a>]</p><br>
+
+        <div id="editmodulesform">
+            <form action="<?=base_url('index.php/session/edit/modules')?>" method="POST">
+                <h3>Modules eligible for activation:</h3><br><br>
+
+                <label>
+                    <input type="checkbox" id="randomquote" name="quotemodule" />Random quote
+                </label><br>
+                <label>
+                    <input type="checkbox" id="randomquoteall" name="quotemoduleall" disabled
+                    />     Allow every participants to add new quotes.
+                </label><br><br>
+
+                <label>
+                    <input type="checkbox" id="randomquote" name="quotemodule" />Godly dice (rolls either 1 or 20)
+                </label><br>
+                <label>
+                    <input type="checkbox" id="randomquoteall" name="quotemoduleall" disabled
+                    />     Allow every participants to use it.
+                </label><br><br>
+
+                <input type="submit" value="Save changes" /><br><br>
+            </form>
+        </div>
+
+        <p>[<a href="#" onclick="reveal_panel_name()">Add players</a>]</p><br>
 
         <div id="addplayersform">
             <form action="<?=base_url('index.php/session/edit/newuser')?>" method="POST">
@@ -77,10 +102,18 @@
     <p class="session--copyright">iLeanbox 2018 &copy; All rights reserved.</p>
 </footer>
 <script type="text/javascript">
-    function reveal_panel_1()
+    function reveal_panel_name()
     {
         if(document.getElementById('addplayersform').style.display == 'block')
         document.getElementById('addplayersform').style.display = 'none';
         else document.getElementById('addplayersform').style.display = 'block';
     }
+
+    function reveal_panel_modules()
+    {
+        if(document.getElementById('editmodulesform').style.display == 'block')
+        document.getElementById('editmodulesform').style.display = 'none';
+        else document.getElementById('editmodulesform').style.display = 'block';
+    }
+
 </script>

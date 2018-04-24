@@ -74,7 +74,11 @@
     right:0;
 }
 
-#addplayersform{
+#addplayersform, #editmodulesform{
     display: none;
     border: 1px solid black;
+}
+
+.create--tooltip{
+    display: inline;
 }

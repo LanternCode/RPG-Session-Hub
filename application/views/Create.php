@@ -20,11 +20,15 @@
 
             <label>Session type:</label><br>
             <label>
-                <input type="radio" name="session_type" value="1" checked />Basic
+                <input type="radio" name="session_type" value="1" checked /> Basic
             </label>
             <br>
             <label>
-                <input type="radio" name="session_type" value="2" />Protected
+                <input type="radio" name="session_type" value="2" /> Protected
+                <div class="create--tooltip" title="You will receive help from the SessionHub support
+if asked, however, you will also have to confirm your e-mail address
+and confirm each administrative action by pressing a special
+link send to that email.">(?)</div>
             </label>
             <br><br>
 

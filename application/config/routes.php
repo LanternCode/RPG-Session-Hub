@@ -9,6 +9,7 @@ $route['logout'] = 'Session/close';
 $route['listrolls'] = 'Roll/getrolls';
 
 $route['session/edit/newuser'] = 'Editor/name';
+$route['session/edit/modules'] = 'Editor/modules';
 
 //Related to session-creation
 $route['new'] = 'Home/newsession';
