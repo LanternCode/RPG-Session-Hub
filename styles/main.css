@@ -74,7 +74,7 @@
     right:0;
 }
 
-#addplayersform, #editmodulesform, #removeplayers, #editdices{
+#addplayersform, #editmodulesform, #removeplayers, #editdices, #changenames{
     display: none;
     border: 1px solid black;
 
@@ -86,4 +86,9 @@
 
 .session--admin__remove{
     padding: 15px;
+}
+
+.session--admin__editname{
+    border-bottom: 1px solid black;
+    padding: 5px;
 }

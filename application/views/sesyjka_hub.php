@@ -88,7 +88,22 @@
 
             </div>
 
-        <p>[<a href="<?=base_url('index.php/logout')?>">Edit player names & avatars</a>]</p><br>
+        <p>[<a href="#" onclick="reveal_panel_newname()">Edit player names & avatars</a>]</p><br>
+
+            <div id="changenames">
+
+                <?php for($i = 0; $i < $session->participants; ++$i){ ?>
+                    <form method="POST" action="<?=base_url('index.php/session/edit/name?='.$participants[$i]->p_id)?>">
+                        <h2><?=$participants[$i]->name?></h2><br><br>
+                        <label>New name:</label><br>
+                        <input type="text" name="new_name" /><br><br>
+                        <label>New avatar:</label><br>
+                        <input type="text" name="new_avatar" /><br><br>
+                        <input type="submit" value="Save changes" /><br><br>
+                        <div class="session--admin__editname"></div>
+                <?php } ?>
+
+            </div>
 
     <?php } ?>
 
@@ -172,5 +187,12 @@
         if(document.getElementById('editdices').style.display == 'block')
         document.getElementById('editdices').style.display = 'none';
         else document.getElementById('editdices').style.display = 'block';
+    }
+
+    function reveal_panel_newname()
+    {
+        if(document.getElementById('changenames').style.display == 'block')
+        document.getElementById('changenames').style.display = 'none';
+        else document.getElementById('changenames').style.display = 'block';
     }
 </script>

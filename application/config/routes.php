@@ -8,10 +8,11 @@ $route['sesyjka'] = 'Session';
 $route['logout'] = 'Session/close';
 $route['listrolls'] = 'Roll/getrolls';
 
-$route['session/edit/newuser'] = 'Editor/name';
+$route['session/edit/newuser'] = 'Editor/newUser';
 $route['session/edit/modules'] = 'Editor/modules';
 $route['session/edit/removeuser'] = 'Editor/users';
 $route['session/edit/dices'] = 'Editor/dices';
+$route['session/edit/name'] = 'Editor/name';
 
 //Related to session-creation
 $route['new'] = 'Home/newsession';
