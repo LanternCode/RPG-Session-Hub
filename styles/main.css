@@ -74,11 +74,16 @@
     right:0;
 }
 
-#addplayersform, #editmodulesform{
+#addplayersform, #editmodulesform, #removeplayers, #editdices{
     display: none;
     border: 1px solid black;
+
 }
 
 .create--tooltip{
     display: inline;
+}
+
+.session--admin__remove{
+    padding: 15px;
 }

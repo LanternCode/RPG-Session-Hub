@@ -36,7 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         function Get_all_participant_information($session_id){
 
-            $sql = "SELECT name, avatar, rank FROM participants WHERE session_id = $session_id";
+            $sql = "SELECT name, avatar, rank, p_id FROM participants WHERE session_id = $session_id";
 
             $query = $this->db->query($sql);
             return $query->result();

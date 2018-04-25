@@ -42,7 +42,7 @@
 
     <p>Now enable the dices that you will be using during the session.</p><br>
     <p>Simply check the checkbox and the dice will be permanently added!</p><br>
-    <p>K represents the number of rolls starting from 1 to K.</p><br><br>
+    <p>K represents the number that can be rolled between 1 and K.</p><br><br>
 
     <label><input type="checkbox" name="k4" />K4</label><br>
     <label><input type="checkbox" name="k6" />K6</label><br>
