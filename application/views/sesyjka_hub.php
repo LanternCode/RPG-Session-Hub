@@ -93,14 +93,16 @@
             <div id="changenames">
 
                 <?php for($i = 0; $i < $session->participants; ++$i){ ?>
-                    <form method="POST" action="<?=base_url('index.php/session/edit/name?='.$participants[$i]->p_id)?>">
+                    <form method="POST" action="<?=base_url('index.php/session/edit/name')?>">
                         <h2><?=$participants[$i]->name?></h2><br><br>
                         <label>New name:</label><br>
                         <input type="text" name="new_name" /><br><br>
                         <label>New avatar:</label><br>
                         <input type="text" name="new_avatar" /><br><br>
+                        <input type="hidden" name="p_id" value="<?=$participants[$i]->p_id?>">
                         <input type="submit" value="Save changes" /><br><br>
                         <div class="session--admin__editname"></div>
+                    </form>
                 <?php } ?>
 
             </div>

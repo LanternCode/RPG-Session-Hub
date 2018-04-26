@@ -10,7 +10,7 @@ $route['listrolls'] = 'Roll/getrolls';
 
 $route['session/edit/newuser'] = 'Editor/newUser';
 $route['session/edit/modules'] = 'Editor/modules';
-$route['session/edit/removeuser'] = 'Editor/users';
+$route['session/edit/removeuser'] = 'Editor/removeusers';
 $route['session/edit/dices'] = 'Editor/dices';
 $route['session/edit/name'] = 'Editor/name';
 

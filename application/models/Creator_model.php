@@ -61,9 +61,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
-		function Increase_participant_count($session_id){
-			$sql = "UPDATE sessions SET participants = participants + 1 WHERE id = $session_id";
-			$query = $this->db->query($sql);
-		}
-
 }
