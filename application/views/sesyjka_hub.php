@@ -36,8 +36,10 @@
                 <form action="<?=base_url('index.php/session/edit/newuser')?>" method="POST">
                     <label>New user's name:</label><br>
                     <input type="text" name="add_user_name" required /><br><br>
+
                     <label>New user's avatar link:</label><br>
                     <input type="text" name="add_user_avatar" /><br><br>
+
                     <input type="submit" value="Add new user" /><br><br>
                 </form>
             </div>
@@ -95,12 +97,16 @@
                 <?php for($i = 0; $i < $session->participants; ++$i){ ?>
                     <form method="POST" action="<?=base_url('index.php/session/edit/name')?>">
                         <h2><?=$participants[$i]->name?></h2><br><br>
+
                         <label>New name:</label><br>
                         <input type="text" name="new_name" /><br><br>
+
                         <label>New avatar:</label><br>
                         <input type="text" name="new_avatar" /><br><br>
+
                         <input type="hidden" name="p_id" value="<?=$participants[$i]->p_id?>">
                         <input type="submit" value="Save changes" /><br><br>
+
                         <div class="session--admin__editname"></div>
                     </form>
                 <?php } ?>

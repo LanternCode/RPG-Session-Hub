@@ -112,7 +112,7 @@ class Editor extends CI_Controller {
 			$data['name'] = (isset($_POST['new_name'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['new_name'])) : -1;
             $data['avatar'] = (isset($_POST['new_avatar'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['new_avatar'])) : -1;
 
-			if(strlen($data['name']) > 0 && $data['name'] != -1 && $data['p_id'] > 0 && isset($_SESSION['session_id'])){
+			if($data['p_id'] > 0 && isset($_SESSION['session_id'])){
 
 				$this->Editor_model->Update_user_data($_SESSION['session_id'], $data['p_id'], $data['name'], $data['avatar']);
 				redirect(base_url('sesyjka'));

@@ -24,10 +24,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         function Update_user_data($session_id, $participant_id, $new_name, $new_avatar){
 
-            $avatar_change = (($new_avatar == '-1' && strlen($new_avatar) == 0) ? 0 : 1);
+			$name_change = (strlen($new_name) == 0 || $new_name == -1) ? 0 : 1;
+            $avatar_change = ($new_avatar == '-1' || strlen($new_avatar) == 0) ? 0 : 1;
 
-            $sql = "UPDATE participants SET name = '$new_name'";
-            if($avatar_change) $sql .= ", avatar = '$new_avatar'";
+            $sql = "UPDATE participants SET ";
+			if($name_change) $sql .= "name = '$new_name'";
+            if($avatar_change && !$name_change) $sql .= "avatar = '$new_avatar'";
+			else if($avatar_change && $name_change) $sql .= ", avatar = '$new_avatar'";
+			else if(!$avatar_change && !$name_change) return 1;
             $sql .= " WHERE session_id = $session_id AND p_id = $participant_id";
 
             $query = $this->db->query($sql);
