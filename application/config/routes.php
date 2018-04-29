@@ -13,6 +13,8 @@ $route['session/edit/modules'] = 'Editor/modules';
 $route['session/edit/removeuser'] = 'Editor/removeusers';
 $route['session/edit/dices'] = 'Editor/dices';
 $route['session/edit/name'] = 'Editor/name';
+$route['session/changewiev'] = "Editor/swap";
+$route['session/edit/addquote'] = "Editor/quote";
 
 //Related to session-creation
 $route['new'] = 'Home/newsession';

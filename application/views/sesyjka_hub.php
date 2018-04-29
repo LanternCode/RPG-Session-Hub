@@ -2,12 +2,17 @@
 <div class="session--hub">
     <p>[<a href="<?=base_url('index.php/logout')?>">Swap sessions</a>]</p><br>
 
-    <?php if($admin){
+    <?php
 
         $quote_checked = (isset($session->quotes) && $session->quotes) ? " checked='checked'" : '';
         $quote_checked_all = (isset($session->quotes_all) && $session->quotes_all) ? " checked='checked'" : '';
         $dice_checked = (isset($session->goddice) && $session->goddice) ? " checked='checked'" : '';
         $dice_checked_all = (isset($session->goddice_all) && $session->goddice_all) ? " checked='checked'" : '';
+
+        if(isset($_SESSION['admin']) && $_SESSION['admin']){
+
+        $quote_checked_all_disabled = ($quote_checked) ? '' : 'disabled';
+        $dice_checked_all_disabled = ($dice_checked) ? '' : 'disabled';
 
         ?>
 
@@ -21,14 +26,14 @@
                         <input type="checkbox" id="randomquote" name="quotemodule" onchange="module_quote_checkbox()"<?=$quote_checked?> /> Random quote
                     </label><br>
                     <label>
-                        <input type="checkbox" id="randomquoteall" name="quotemoduleall"<?=$quote_checked_all?> disabled/> Allow every participants to add new quotes.
+                        <input type="checkbox" id="randomquoteall" name="quotemoduleall"<?=$quote_checked_all?> <?=$quote_checked_all_disabled?>/> Allow every participants to add new quotes.
                     </label><br><br>
 
                     <label>
                         <input type="checkbox" id="goddice" name="dicemodule"<?=$dice_checked?> onchange="module_dice_checkbox()" /> Godly dice (rolls either 1 or 20)
                     </label><br>
                     <label>
-                        <input type="checkbox" id="goddiceall" name="dicemoduleall"<?=$dice_checked_all?> disabled/> Allow every participants to use it.
+                        <input type="checkbox" id="goddiceall" name="dicemoduleall"<?=$dice_checked_all?> <?=$dice_checked_all_disabled?>/> Allow every participants to use it.
                     </label><br><br>
 
                     <input type="submit" value="Save changes" /><br><br>
@@ -118,6 +123,8 @@
 
             </div>
 
+        <p>[<a href="<?=base_url('index.php/session/changewiev')?>">Switch to user's view</a>]</p><br>
+
     <?php } ?>
 
     <?php if(isset($session->quotes) && $session->quotes){ ?>
@@ -153,7 +160,11 @@
 
             if($dices[$i]){ ?>
             <label><input type="radio" name="dice" value="<?=$val?>" checked/><?=$val?></label>
-        <?php }} ?> <br>
+        <?php }}
+
+        if($dice_checked && ($dice_checked_all || $_SESSION['admin'])) {
+            echo('<label><input type="radio" name="dice" value="god" />God Dice</label><br>');
+        }else{ echo('<br>'); } ?>
 
         <label>Rolls for:</label><br><br>
         <input type="text" name="comment"><br>
@@ -167,7 +178,18 @@
 
         <iframe src="<?=base_url('index.php/listrolls')?>"></iframe>
 
-    </div>
+    </div><br>
+
+    <?php if($quote_checked && ($quote_checked_all || $_SESSION['admin'])){ ?>
+
+        <h2>Insert quote:</h2><br>
+        <form method="POST" action="<?=base_url('index.php/session/edit/addquote')?>">
+            <label>Quote to add:</label>
+            <input type="text" name="add_quote" required /><br>
+            <input type="submit" value="Add quote!" />
+        </form><br><br>
+
+    <?php } ?>
 
 </div>
 <footer class="session--copyright--box">
@@ -213,13 +235,19 @@
     {
         if(document.getElementById('randomquote').checked == 1)
             document.getElementById('randomquoteall').disabled = 0;
-        else document.getElementById('randomquoteall').disabled = 1;
+        else {
+            document.getElementById('randomquoteall').disabled = 1;
+            document.getElementById('randomquoteall').checked = 0;
+        }
     }
 
     function module_dice_checkbox()
     {
         if(document.getElementById('goddice').checked == 1)
             document.getElementById('goddiceall').disabled = 0;
-        else document.getElementById('goddiceall').disabled = 1;
+        else {
+            document.getElementById('goddiceall').disabled = 1;
+            document.getElementById('goddiceall').checked = 0;
+        }
     }
 </script>

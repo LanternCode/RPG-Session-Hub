@@ -49,6 +49,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			else if ($dice == 'K10') return rand(1, 10);
 			else if ($dice == 'K12') return rand(1, 12);
 			else if ($dice == 'K20') return rand(1, 20);
+			else if($dice == 'god') {
+				$case = rand(1, 2);
+				if($case == 1) return 1;
+				else return 20;
+			}
 			else return rand(1, 100);
 
 

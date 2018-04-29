@@ -25,6 +25,7 @@ class Session extends CI_Controller {
 			}
 
 			$data['admin'] = ($data['key'] == $this->Assignment_model->Get_admin_key($_SESSION['session_id'])) ? 1 : 0;
+			if($data['admin']) $_SESSION['admin'] = 1;
 			$data['session'] = $this->Assignment_model->Get_all_session_information($_SESSION['session_id']);
 			$data['participants'] = $this->Assignment_model->Get_all_participant_information($_SESSION['session_id']);
 			$data['rolls'] = $this->Roll_model->Get_Roll_History();

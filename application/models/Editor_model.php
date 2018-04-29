@@ -66,4 +66,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		function Add_quote($quote, $session_id){
+
+			$sql = "INSERT INTO quotes (session_id, quote)VALUES($session_id, '$quote')";
+			$query = $this->db->query($sql);
+
+		}
+
 }

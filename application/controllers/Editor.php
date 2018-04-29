@@ -37,6 +37,7 @@ class Editor extends CI_Controller {
 	public function modules()
 	{
 		if(isset($_SESSION['connected'])){
+
 			$data = [];
 			$data['title'] = 'Session Hub';
 
@@ -139,6 +140,41 @@ class Editor extends CI_Controller {
 				//adminowy error
 				print_r($data);
 			}
+
+		}else{
+			redirect(base_url('logout'));
+		}
+
+	}
+
+	public function swap()
+	{
+
+		if(isset($_SESSION['connected'])){
+
+			$data = [];
+			$data['title'] = 'Session Hub';
+
+			$_SESSION['admin'] = 0;
+			redirect(base_url('sesyjka'));
+
+		}else{
+			redirect(base_url('logout'));
+		}
+
+	}
+
+	public function quote()
+	{
+
+		if(isset($_SESSION['connected'])){
+
+			$data = [];
+			$data['title'] = 'Session Hub';
+
+			$quote = $data['p_id'] = (isset($_POST['add_quote'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['add_quote'])) : -1;
+			if(strlen($quote) > 1 && ($quote != -1) && isset($_SESSION['session_id'])) $this->Editor_model->Add_quote($quote, $_SESSION['session_id']);
+			redirect(base_url('sesyjka'));
 
 		}else{
 			redirect(base_url('logout'));
