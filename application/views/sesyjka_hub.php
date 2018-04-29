@@ -2,7 +2,14 @@
 <div class="session--hub">
     <p>[<a href="<?=base_url('index.php/logout')?>">Swap sessions</a>]</p><br>
 
-    <?php if($admin){?>
+    <?php if($admin){
+
+        $quote_checked = (isset($session->quotes) && $session->quotes) ? " checked='checked'" : '';
+        $quote_checked_all = (isset($session->quotes_all) && $session->quotes_all) ? " checked='checked'" : '';
+        $dice_checked = (isset($session->goddice) && $session->goddice) ? " checked='checked'" : '';
+        $dice_checked_all = (isset($session->goddice_all) && $session->goddice_all) ? " checked='checked'" : '';
+
+        ?>
 
         <p>[<a href="#" onclick="reveal_panel_modules()">Enable/Disable modules</a>]</p><br>
 
@@ -11,19 +18,17 @@
                     <h3>Modules eligible for activation:</h3><br><br>
 
                     <label>
-                        <input type="checkbox" id="randomquote" name="quotemodule" />Random quote
+                        <input type="checkbox" id="randomquote" name="quotemodule" onchange="module_quote_checkbox()"<?=$quote_checked?> /> Random quote
                     </label><br>
                     <label>
-                        <input type="checkbox" id="randomquoteall" name="quotemoduleall" disabled
-                        />     Allow every participants to add new quotes.
+                        <input type="checkbox" id="randomquoteall" name="quotemoduleall"<?=$quote_checked_all?> disabled/> Allow every participants to add new quotes.
                     </label><br><br>
 
                     <label>
-                        <input type="checkbox" id="randomquote" name="quotemodule" />Godly dice (rolls either 1 or 20)
+                        <input type="checkbox" id="goddice" name="dicemodule"<?=$dice_checked?> onchange="module_dice_checkbox()" /> Godly dice (rolls either 1 or 20)
                     </label><br>
                     <label>
-                        <input type="checkbox" id="randomquoteall" name="quotemoduleall" disabled
-                        />     Allow every participants to use it.
+                        <input type="checkbox" id="goddiceall" name="dicemoduleall"<?=$dice_checked_all?> disabled/> Allow every participants to use it.
                     </label><br><br>
 
                     <input type="submit" value="Save changes" /><br><br>
@@ -172,35 +177,49 @@
     function reveal_panel_name()
     {
         if(document.getElementById('addplayersform').style.display == 'block')
-        document.getElementById('addplayersform').style.display = 'none';
+            document.getElementById('addplayersform').style.display = 'none';
         else document.getElementById('addplayersform').style.display = 'block';
     }
 
     function reveal_panel_modules()
     {
         if(document.getElementById('editmodulesform').style.display == 'block')
-        document.getElementById('editmodulesform').style.display = 'none';
+            document.getElementById('editmodulesform').style.display = 'none';
         else document.getElementById('editmodulesform').style.display = 'block';
     }
 
     function reveal_panel_remove()
     {
         if(document.getElementById('removeplayers').style.display == 'block')
-        document.getElementById('removeplayers').style.display = 'none';
+            document.getElementById('removeplayers').style.display = 'none';
         else document.getElementById('removeplayers').style.display = 'block';
     }
 
     function reveal_panel_dices()
     {
         if(document.getElementById('editdices').style.display == 'block')
-        document.getElementById('editdices').style.display = 'none';
+            document.getElementById('editdices').style.display = 'none';
         else document.getElementById('editdices').style.display = 'block';
     }
 
     function reveal_panel_newname()
     {
         if(document.getElementById('changenames').style.display == 'block')
-        document.getElementById('changenames').style.display = 'none';
+            document.getElementById('changenames').style.display = 'none';
         else document.getElementById('changenames').style.display = 'block';
+    }
+
+    function module_quote_checkbox()
+    {
+        if(document.getElementById('randomquote').checked == 1)
+            document.getElementById('randomquoteall').disabled = 0;
+        else document.getElementById('randomquoteall').disabled = 1;
+    }
+
+    function module_dice_checkbox()
+    {
+        if(document.getElementById('goddice').checked == 1)
+            document.getElementById('goddiceall').disabled = 0;
+        else document.getElementById('goddiceall').disabled = 1;
     }
 </script>

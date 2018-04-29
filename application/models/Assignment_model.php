@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         function Get_all_session_information($session_id){
 
-            $sql = "SELECT name, participants, dices, quotes FROM sessions WHERE id = $session_id";
+            $sql = "SELECT name, participants, dices, quotes, quotes_all, goddice, goddice_all FROM sessions WHERE id = $session_id";
 
              $query = $this->db->query($sql);
              return $query->row();

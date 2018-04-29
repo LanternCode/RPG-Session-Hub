@@ -36,13 +36,32 @@ class Editor extends CI_Controller {
 
 	public function modules()
 	{
-		if(!isset($_SESSION['connected'])){
+		if(isset($_SESSION['connected'])){
 			$data = [];
 			$data['title'] = 'Session Hub';
-			$data['body'] = 'Create';
-			$this->load->view('templates/main',$data);
-		}else{
+
+			$data['quote_module_on'] = (isset($_POST['quotemodule'])) ? 1 : 0;
+	  		$data['quote_module_allow_everyone'] = (isset($_POST['quotemoduleall'])) ? 1 : 0;
+
+	  		$data['dice_module_on'] = (isset($_POST['dicemodule'])) ? 1 : 0;
+	  		$data['dice_module_allow_everyone'] = (isset($_POST['dicemoduleall'])) ? 1 : 0;
+
+			if($data['quote_module_on'] == 1 && isset($_SESSION['session_id'])) $this->Editor_model->Enable_or_disable_quotes($_SESSION['session_id'], 1);
+			else if(isset($_SESSION['session_id'])) $this->Editor_model->Enable_or_disable_quotes($_SESSION['session_id'], 0);
+
+			if($data['quote_module_allow_everyone'] == 1 && isset($_SESSION['session_id'])) $this->Editor_model->Enable_or_disable_quotes_addition_for_all($_SESSION['session_id'], 1);
+			else if(isset($_SESSION['session_id'])) $this->Editor_model->Enable_or_disable_quotes_addition_for_all($_SESSION['session_id'], 0);
+
+			if($data['dice_module_on'] == 1 && isset($_SESSION['session_id'])) $this->Editor_model->Enable_or_disable_godDice($_SESSION['session_id'], 1);
+			else if(isset($_SESSION['session_id'])) $this->Editor_model->Enable_or_disable_godDice($_SESSION['session_id'], 0);
+
+			if($data['dice_module_allow_everyone'] == 1 && isset($_SESSION['session_id'])) $this->Editor_model->Enable_or_disable_godDice_for_all($_SESSION['session_id'], 1);
+			else if(isset($_SESSION['session_id'])) $this->Editor_model->Enable_or_disable_godDice_for_all($_SESSION['session_id'], 0);
+
 			redirect(base_url('sesyjka'));
+
+		}else{
+			redirect(base_url('logout'));
 		}
 	}
 

@@ -38,4 +38,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         }
 
+		function Enable_or_disable_quotes($session_id, $status){
+
+			$sql = "UPDATE sessions SET quotes = $status WHERE id = $session_id";
+			$query = $this->db->query($sql);
+
+		}
+
+		function Enable_or_disable_quotes_addition_for_all($session_id, $status){
+
+			$sql = "UPDATE sessions SET quotes_all = $status WHERE id = $session_id";
+			$query = $this->db->query($sql);
+
+		}
+
+		function Enable_or_disable_godDice($session_id, $status){
+
+			$sql = "UPDATE sessions SET goddice = $status WHERE id = $session_id";
+			$query = $this->db->query($sql);
+
+		}
+
+		function Enable_or_disable_godDice_for_all($session_id, $status){
+
+			$sql = "UPDATE sessions SET goddice_all = $status WHERE id = $session_id";
+			$query = $this->db->query($sql);
+
+		}
+
 }
