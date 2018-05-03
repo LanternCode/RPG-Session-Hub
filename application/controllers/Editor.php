@@ -164,6 +164,23 @@ class Editor extends CI_Controller {
 
 	}
 
+	public function swap_admin()
+	{
+
+		if(isset($_SESSION['connected'])){
+
+			$data = [];
+			$data['title'] = 'Session Hub';
+
+			$_SESSION['admin'] = 1;
+			redirect(base_url('sesyjka'));
+
+		}else{
+			redirect(base_url('logout'));
+		}
+
+	}
+
 	public function quote()
 	{
 

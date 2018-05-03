@@ -8,12 +8,16 @@ $route['sesyjka'] = 'Session';
 $route['logout'] = 'Session/close';
 $route['listrolls'] = 'Roll/getrolls';
 
+$route['admin'] = 'Admin';
+$route ['adminkey'] = 'Admin/keycheck';
+
 $route['session/edit/newuser'] = 'Editor/newUser';
 $route['session/edit/modules'] = 'Editor/modules';
 $route['session/edit/removeuser'] = 'Editor/removeusers';
 $route['session/edit/dices'] = 'Editor/dices';
 $route['session/edit/name'] = 'Editor/name';
 $route['session/changewiev'] = "Editor/swap";
+$route['session/adminwiev'] = "Editor/swap_admin";
 $route['session/edit/addquote'] = "Editor/quote";
 
 //Related to session-creation

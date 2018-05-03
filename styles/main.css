@@ -1,20 +1,28 @@
 *{
+    box-sizing: border-box;
     margin: 0px;
     padding: 0px;
     background-color: #ededed;
 }
 
-.foot{
-    position: absolute;
-     bottom: 0;
-     right: 0;
+footer{
+    display: block;
+    text-align: center;
+    margin: 20px;
+}
+
+.homepage--logo__brand{
+    font-family: 'Dancing Script', cursive;
+    font-size: 50px;
+}
+
+.homepage--logo__session{
+    color: #FF0000;
 }
 
 .link--upgrade{
     color: white;
 }
-
-
 
 .homepage--login__form{
     max-width: 250px;
@@ -57,7 +65,7 @@
 
 .homepage--logo{
     text-align: center;
-    margin-top: 50px;
+    margin: 50px;
 }
 
 .create--error{

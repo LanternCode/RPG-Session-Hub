@@ -4,6 +4,10 @@
 
     <?php
 
+        if(isset($_SESSION['admin']) && $_SESSION['admin'] == 0){ ?>
+            <p>[<a href="<?=base_url('index.php/session/adminwiev')?>">Switch to admin's view</a>]</p><br>
+        <?php }
+
         $quote_checked = (isset($session->quotes) && $session->quotes) ? " checked='checked'" : '';
         $quote_checked_all = (isset($session->quotes_all) && $session->quotes_all) ? " checked='checked'" : '';
         $dice_checked = (isset($session->goddice) && $session->goddice) ? " checked='checked'" : '';

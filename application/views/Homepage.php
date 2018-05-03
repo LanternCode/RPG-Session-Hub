@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
 <div class="homepage--logo">
-    <h2>Welcome to the</h2> <h1>Session Hub</h1>
+    <h2>Welcome to the</h2><h1 class="homepage--logo__brand"><span class="homepage--logo__session">Session-</span>Hub!</h1>
 </div>
 
 <div class="homepage--body">
