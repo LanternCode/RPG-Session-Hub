@@ -29,7 +29,11 @@ class Keycheck extends CI_Controller {
 					   redirect(base_url('sesyjka?key='.$data['key']));
 
 				   }else{
-					   redirect(base_url());
+					   $data['key'] = '';
+					   $data['body'] = 'Homepage';
+					   $data['invalid_session_key'] = 1;
+
+					   $this->load->view('templates/main', $data);
 				   }
 
 	           }else{

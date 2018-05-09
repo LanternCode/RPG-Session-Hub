@@ -72,6 +72,13 @@ footer{
     color: red;
 }
 
+.homepage--error{
+    color: red;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
 .session--copyright--box{
     position:relative;
 }
@@ -82,7 +89,7 @@ footer{
     right:0;
 }
 
-#addplayersform, #editmodulesform, #removeplayers, #editdices, #changenames{
+#addplayersform, #editmodulesform, #removeplayers, #editdices, #changenames, #contactsupport{
     display: none;
     border: 1px solid black;
 

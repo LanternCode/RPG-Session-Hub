@@ -199,6 +199,33 @@ class Editor extends CI_Controller {
 
 	}
 
+	public function newticket()
+	{
+
+		if(isset($_SESSION['connected'])){
+
+			$data = [];
+			$data['title'] = 'Session Hub';
+			$data['body'] = 'sesyjka_hub';
+
+			$data['title'] = (isset($_POST['ticket_title'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['ticket_title'])) : -1;
+			$data['message'] = (isset($_POST['ticket_content'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['ticket_content'])) : -1;
+
+			if(strlen($data['title']) > 0 && strlen($data['message']) > 0 && $data['title'] != -1 && $data['message'] != -1 && isset($_SESSION['session_id'])){
+
+				$this->Editor_model->Send_ticket($data['title'], $data['message'], $_SESSION['session_id']);
+				redirect(base_url('sesyjka'));
+			}else{
+				redirect(base_url('sesyjka'));
+			}
+
+			$this->load->view('templates/main', $data);
+		}else{
+			redirect(base_url('logout'));
+		}
+
+	}
+
 }
 
 ?>

@@ -19,6 +19,7 @@ $route['session/edit/name'] = 'Editor/name';
 $route['session/changewiev'] = "Editor/swap";
 $route['session/adminwiev'] = "Editor/swap_admin";
 $route['session/edit/addquote'] = "Editor/quote";
+$route['session/sendticket'] = "Editor/newticket";
 
 //Related to session-creation
 $route['new'] = 'Home/newsession';

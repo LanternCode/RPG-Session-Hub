@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $sql = "SELECT session_id FROM identificators WHERE user_id = '$key' OR gm_id = '$key'";
             $query = $this->db->query($sql);
 
-            if($query->row()->session_id) return 1;
+            if(isset($query->row()->session_id) && $query->row()->session_id) return 1;
             else return 0;
         }
 

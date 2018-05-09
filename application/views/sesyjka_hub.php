@@ -127,6 +127,24 @@
 
             </div>
 
+        <p>[<a href="#" onclick="reveal_panel_support()">Contact Session-Hub's support </a>]</p><br>
+
+            <div id="contactsupport">
+
+                    <form method="POST" action="<?=base_url('index.php/session/sendticket')?>">
+                        <h2>Tell us what's bothering you by sending us a message:</h2><br><br>
+
+                        <label>Message title:</label><br>
+                        <input type="text" name="ticket_title" required /><br><br>
+
+                        <label>Message:</label><br>
+                        <textarea rows="4" cols="50" name="ticket_content" required></textarea><br><br>
+
+                        <input type="submit" value="Submit a ticket" /><br><br>
+                    </form>
+
+            </div>
+
         <p>[<a href="<?=base_url('index.php/session/changewiev')?>">Switch to user's view</a>]</p><br>
 
     <?php } ?>
@@ -233,6 +251,13 @@
         if(document.getElementById('changenames').style.display == 'block')
             document.getElementById('changenames').style.display = 'none';
         else document.getElementById('changenames').style.display = 'block';
+    }
+
+    function reveal_panel_support()
+    {
+        if(document.getElementById('contactsupport').style.display == 'block')
+            document.getElementById('contactsupport').style.display = 'none';
+        else document.getElementById('contactsupport').style.display = 'block';
     }
 
     function module_quote_checkbox()

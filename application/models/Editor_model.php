@@ -73,4 +73,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		function Send_ticket($title, $message, $session_id){
+
+			$sql = "INSERT INTO tickets (session_id, title, message)VALUES($session_id, '$title', '$message')";
+			$query = $this->db->query($sql);
+
+		}
+
 }
