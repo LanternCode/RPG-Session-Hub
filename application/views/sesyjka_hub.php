@@ -1,13 +1,7 @@
 <?php $this->load->helper('quote_helper'); ?>
-<div class="session--hub">
-    <p>[<a href="<?=base_url('index.php/logout')?>">Swap sessions</a>]</p><br>
+<div class="session--hub"><br>
 
     <?php
-
-        if(isset($_SESSION['admin']) && $_SESSION['admin'] == 0){ ?>
-            <p>[<a href="<?=base_url('index.php/session/adminwiev')?>">Switch to admin's view</a>]</p><br>
-        <?php }
-
         $quote_checked = (isset($session->quotes) && $session->quotes) ? " checked='checked'" : '';
         $quote_checked_all = (isset($session->quotes_all) && $session->quotes_all) ? " checked='checked'" : '';
         $dice_checked = (isset($session->goddice) && $session->goddice) ? " checked='checked'" : '';
@@ -15,158 +9,150 @@
 
         if(isset($_SESSION['admin']) && $_SESSION['admin']){
 
-        $quote_checked_all_disabled = ($quote_checked) ? '' : 'disabled';
-        $dice_checked_all_disabled = ($dice_checked) ? '' : 'disabled';
+            $quote_checked_all_disabled = ($quote_checked) ? '' : 'disabled';
+            $dice_checked_all_disabled = ($dice_checked) ? '' : 'disabled';
+            ?>
 
-        ?>
+            <a role="button" class="btn btn-primary" href="#" onclick="reveal_panel(1)">Session Settings</a>
 
-        <p>[<a href="#" onclick="reveal_panel_modules()">Enable/Disable modules</a>]</p><br>
-
-            <div id="editmodulesform">
-                <form action="<?=base_url('index.php/session/edit/modules')?>" method="POST">
-                    <h3>Modules eligible for activation:</h3><br><br>
-
-                    <label>
-                        <input type="checkbox" id="randomquote" name="quotemodule" onchange="module_quote_checkbox()"<?=$quote_checked?> /> Random quote
-                    </label><br>
-                    <label>
-                        <input type="checkbox" id="randomquoteall" name="quotemoduleall"<?=$quote_checked_all?> <?=$quote_checked_all_disabled?>/> Allow every participants to add new quotes.
-                    </label><br><br>
-
-                    <label>
-                        <input type="checkbox" id="goddice" name="dicemodule"<?=$dice_checked?> onchange="module_dice_checkbox()" /> Godly dice (rolls either 1 or 20)
-                    </label><br>
-                    <label>
-                        <input type="checkbox" id="goddiceall" name="dicemoduleall"<?=$dice_checked_all?> <?=$dice_checked_all_disabled?>/> Allow every participants to use it.
-                    </label><br><br>
-
-                    <input type="submit" value="Save changes" /><br><br>
-                </form>
-            </div>
-
-        <p>[<a href="#" onclick="reveal_panel_name()">Add players</a>]</p><br>
-
-            <div id="addplayersform">
-                <form action="<?=base_url('index.php/session/edit/newuser')?>" method="POST">
-                    <label>New user's name:</label><br>
-                    <input type="text" name="add_user_name" required /><br><br>
-
-                    <label>New user's avatar link:</label><br>
-                    <input type="text" name="add_user_avatar" /><br><br>
-
-                    <input type="submit" value="Add new user" /><br><br>
-                </form>
-            </div>
-
-        <p>[<a href="#" onclick="reveal_panel_remove()">Remove players</a>]</p><br>
-
-            <div id="removeplayers">
-
-                <h2>User list</h2>
-                <?php for($i = 0; $i < $session->participants; ++$i){
-                    $gm = $participants[$i]->rank;
-                    $href = ($gm) ? '#' : base_url("index.php/session/edit/removeuser?id=".$participants[$i]->p_id);
-                    $button_color = ($gm) ? 'btn-info' : 'btn-danger';
-                    $message = ($gm) ? 'GM' : 'Remove'; ?>
-                <div class="session--admin__remove">
-                    <?=$participants[$i]->name?>
-                    <a href="<?=$href?>"
-                        role="button" class="btn <?=$button_color?>"><?=$message?></a>
+            <div class="dropdown">
+                <a role="button" class="btn btn-primary" href="#">Player Settings</a>
+                <div class="dropdown-content">
+                    <a role="button" class="btn btn-success" href="#" onclick="reveal_panel(2)">Add Players</a>
+                    <a role="button" class="btn btn-success" href="#" onclick="reveal_panel(3)">Remove Players</a>
+                    <a role="button" class="btn btn-success" href="#" onclick="reveal_panel(4)">Change Players' names and avatars</a>
                 </div>
-                <?php } ?>
-
             </div>
 
-        <p>[<a href="#" onclick="reveal_panel_dices()">Change dices</a>]</p><br>
+            <a role="button" class="btn btn-primary" href="#" onclick="reveal_panel(5)">Dice Settings</a>
+            <a href="#" role="button" class="btn btn-primary" onclick="reveal_panel(6)">Contact Session-Hub's support</a>
+            <a role="button" class="btn btn-info" href="<?=base_url('index.php/session/changewiev')?>">Switch to user's view</a><?php
 
-            <div id="editdices">
+        }
 
-                <h2>Dices</h2><br><br>
-                <form method="POST" action="<?=base_url('index.php/session/edit/dices')?>">
-                    <?php
-                        $k0 = ($dices[0]) ? 'checked' : '';
-                        $k1 = ($dices[1]) ? 'checked' : '';
-                        $k2 = ($dices[2]) ? 'checked' : '';
-                        $k3 = ($dices[3]) ? 'checked' : '';
-                        $k4 = ($dices[4]) ? 'checked' : '';
-                        $k5 = ($dices[5]) ? 'checked' : '';
-                        $k6 = ($dices[6]) ? 'checked' : '';
-                    ?>
-                    <label><input type="checkbox" name="k4" <?=$k0?> />K4</label><br>
-                    <label><input type="checkbox" name="k6" <?=$k1?> />K6</label><br>
-                    <label><input type="checkbox" name="k8" <?=$k2?> />K8</label><br>
-                    <label><input type="checkbox" name="k10" <?=$k3?> />K10</label><br>
-                    <label><input type="checkbox" name="k12" <?=$k4?> />K12</label><br>
-                    <label><input type="checkbox" name="k20" <?=$k5?> />K20</label><br>
-                    <label><input type="checkbox" name="k100" <?=$k6?> />K100</label><br><br>
-                    <input type="submit" value="Save changes"><br><br>
+        if(isset($_SESSION['admin']) && $_SESSION['admin'] == 0){ ?>
+            <a class="btn btn-info" role="button" href="<?=base_url('index.php/session/adminwiev')?>">Switch to admin's view</a><?php
+        } ?>
+
+        <a role="button" class="btn btn-warning" href="<?=base_url('index.php/logout')?>">Logout</a>
+
+        <?php if(isset($_SESSION['admin']) && $_SESSION['admin']){ ?>
+
+        <div id="editdices">
+
+            <h2>Dices</h2><br><br>
+            <form method="POST" action="<?=base_url('index.php/session/edit/dices')?>">
+                <?php
+                    $k0 = ($dices[0]) ? 'checked' : '';
+                    $k1 = ($dices[1]) ? 'checked' : '';
+                    $k2 = ($dices[2]) ? 'checked' : '';
+                    $k3 = ($dices[3]) ? 'checked' : '';
+                    $k4 = ($dices[4]) ? 'checked' : '';
+                    $k5 = ($dices[5]) ? 'checked' : '';
+                    $k6 = ($dices[6]) ? 'checked' : '';
+                ?>
+                <label><input type="checkbox" name="k4" <?=$k0?> />K4</label><br>
+                <label><input type="checkbox" name="k6" <?=$k1?> />K6</label><br>
+                <label><input type="checkbox" name="k8" <?=$k2?> />K8</label><br>
+                <label><input type="checkbox" name="k10" <?=$k3?> />K10</label><br>
+                <label><input type="checkbox" name="k12" <?=$k4?> />K12</label><br>
+                <label><input type="checkbox" name="k20" <?=$k5?> />K20</label><br>
+                <label><input type="checkbox" name="k100" <?=$k6?> />K100</label><br><br>
+                <input type="submit" value="Save changes"><br><br>
+            </form>
+
+        </div>
+        <div id="editmodulesform">
+            <form action="<?=base_url('index.php/session/edit/modules')?>" method="POST">
+                <h3>Modules eligible for activation:</h3><br><br>
+
+                <label>
+                    <input type="checkbox" id="randomquote" name="quotemodule" onchange="module_quote_checkbox()"<?=$quote_checked?> /> Random quote
+                </label><br>
+                <label>
+                    <input type="checkbox" id="randomquoteall" name="quotemoduleall"<?=$quote_checked_all?> <?=$quote_checked_all_disabled?>/> Allow every participants to add new quotes.
+                </label><br><br>
+
+                <label>
+                    <input type="checkbox" id="goddice" name="dicemodule"<?=$dice_checked?> onchange="module_dice_checkbox()" /> Godly dice (rolls either 1 or 20)
+                </label><br>
+                <label>
+                    <input type="checkbox" id="goddiceall" name="dicemoduleall"<?=$dice_checked_all?> <?=$dice_checked_all_disabled?>/> Allow every participants to use it.
+                </label><br><br>
+
+                <input type="submit" value="Save changes" /><br><br>
+            </form>
+        </div>
+        <div id="addplayersform">
+            <form action="<?=base_url('index.php/session/edit/newuser')?>" method="POST">
+                <label>New user's name:</label><br>
+                <input type="text" name="add_user_name" required /><br><br>
+
+                <label>New user's avatar link:</label><br>
+                <input type="text" name="add_user_avatar" /><br><br>
+
+                <input type="submit" value="Add new user" /><br><br>
+            </form>
+        </div>
+        <div id="changenames">
+
+            <?php for($i = 0; $i < $session->participants; ++$i){ ?>
+                <form method="POST" action="<?=base_url('index.php/session/edit/name')?>">
+                    <h2><?=$participants[$i]->name?></h2><br><br>
+
+                    <label>New name:</label><br>
+                    <input type="text" name="new_name" /><br><br>
+
+                    <label>New avatar:</label><br>
+                    <input type="text" name="new_avatar" /><br><br>
+
+                    <input type="hidden" name="p_id" value="<?=$participants[$i]->p_id?>">
+                    <input type="submit" value="Save changes" /><br><br>
+
+                    <div class="session--admin__editname"></div>
+                </form>
+            <?php } ?>
+
+        </div>
+        <div id="removeplayers">
+
+            <h2>User list</h2>
+            <?php for($i = 0; $i < $session->participants; ++$i){
+                $gm = $participants[$i]->rank;
+                $href = ($gm) ? '#' : base_url("index.php/session/edit/removeuser?id=".$participants[$i]->p_id);
+                $button_color = ($gm) ? 'btn-info' : 'btn-danger';
+                $message = ($gm) ? 'GM' : 'Remove'; ?>
+            <div class="session--admin__remove">
+                <?=$participants[$i]->name?>
+                <a href="<?=$href?>"
+                    role="button" class="btn <?=$button_color?>"><?=$message?></a>
+            </div>
+            <?php } ?>
+
+        </div>
+        <div id="contactsupport">
+
+                <form method="POST" action="<?=base_url('index.php/session/sendticket')?>">
+                    <h2>Tell us what's bothering you by sending us a message:</h2><br><br>
+
+                    <label>Message title:</label><br>
+                    <input type="text" name="ticket_title" required /><br><br>
+
+                    <label>Message:</label><br>
+                    <textarea rows="4" cols="50" name="ticket_content" required></textarea><br><br>
+
+                    <input type="submit" value="Submit a ticket" /><br><br>
                 </form>
 
-            </div>
+        </div>
 
-        <p>[<a href="#" onclick="reveal_panel_newname()">Edit player names & avatars</a>]</p><br>
+    <?php }
 
-            <div id="changenames">
-
-                <?php for($i = 0; $i < $session->participants; ++$i){ ?>
-                    <form method="POST" action="<?=base_url('index.php/session/edit/name')?>">
-                        <h2><?=$participants[$i]->name?></h2><br><br>
-
-                        <label>New name:</label><br>
-                        <input type="text" name="new_name" /><br><br>
-
-                        <label>New avatar:</label><br>
-                        <input type="text" name="new_avatar" /><br><br>
-
-                        <input type="hidden" name="p_id" value="<?=$participants[$i]->p_id?>">
-                        <input type="submit" value="Save changes" /><br><br>
-
-                        <div class="session--admin__editname"></div>
-                    </form>
-                <?php } ?>
-
-            </div>
-
-        <p>[<a href="#" onclick="reveal_panel_support()">Contact Session-Hub's support </a>]</p><br>
-
-            <div id="contactsupport">
-
-                    <form method="POST" action="<?=base_url('index.php/session/sendticket')?>">
-                        <h2>Tell us what's bothering you by sending us a message:</h2><br><br>
-
-                        <label>Message title:</label><br>
-                        <input type="text" name="ticket_title" required /><br><br>
-
-                        <label>Message:</label><br>
-                        <textarea rows="4" cols="50" name="ticket_content" required></textarea><br><br>
-
-                        <input type="submit" value="Submit a ticket" /><br><br>
-                    </form>
-
-            </div>
-
-        <p>[<a href="<?=base_url('index.php/session/changewiev')?>">Switch to user's view</a>]</p><br>
-
+    if(isset($session->quotes) && $session->quotes){ ?>
+        <br><br><p>Random quote: <?=Get_daily_quote()?></p>
     <?php } ?>
 
-    <?php if(isset($session->quotes) && $session->quotes){ ?>
-        <p>Random quote: <?=Get_daily_quote()?></p><br><br>
-    <?php } ?>
-
-    <p>The participants of the session: </p><br>
-
-    <div class="row">
-        <?php for($i = 0; $i < $session->participants; ++$i){?>
-            <div class="col">
-                <?php if($participants[$i]->avatar != "0") { ?>
-                    <img class="hub--avatar" src="<?=$participants[$i]->avatar?>"/><br>
-                <?php } ?>
-                <?=$participants[$i]->name?>
-            </div>
-        <?php } ?>
-   </div><br>
-
-
+    <br><br>
     <form class="roll--form padded" method="POST" action="<?=base_url('index.php/roll')?>">
         <?php if(!isset($_SESSION['who'])){ ?>
         <label>Who rolls:</label><br>
@@ -185,21 +171,32 @@
         <?php }}
 
         if($dice_checked && ($dice_checked_all || $_SESSION['admin'])) {
-            echo('<label><input type="radio" name="dice" value="god" />God Dice</label><br>');
+            echo('<label><input type="radio" name="dice" value="god" />Godly Dice</label><br>');
         }else{ echo('<br>'); } ?>
 
         <label>Rolls for:</label><br><br>
         <input type="text" name="comment"><br>
         <label><input type="checkbox" name="double"> Double roll</input></label><br><br>
         <input type="submit" class="btn btn-info" value="ROLL THE DICE!">
-    </form><br><br>
+    </form><br>
+
+    <p>The participants of the session: </p><br><br>
+
+    <div class="row">
+        <?php for($i = 0; $i < $session->participants; ++$i){?>
+            <div class="col">
+                <?php if($participants[$i]->avatar != "0") { ?>
+                    <img class="hub--avatar" src="<?=$participants[$i]->avatar?>"/><br>
+                <?php } ?>
+                <?=$participants[$i]->name?>
+            </div>
+        <?php } ?>
+   </div>
 
     <h3>Recent rolls: </h3>
 
     <div class="lastrolls">
-
         <iframe src="<?=base_url('index.php/listrolls')?>"></iframe>
-
     </div><br>
 
     <?php if($quote_checked && ($quote_checked_all || $_SESSION['admin'])){ ?>
@@ -218,46 +215,34 @@
     <p class="session--copyright">iLeanbox 2018 &copy; All rights reserved.</p>
 </footer>
 <script type="text/javascript">
-    function reveal_panel_name()
-    {
-        if(document.getElementById('addplayersform').style.display == 'block')
-            document.getElementById('addplayersform').style.display = 'none';
-        else document.getElementById('addplayersform').style.display = 'block';
-    }
 
-    function reveal_panel_modules()
-    {
-        if(document.getElementById('editmodulesform').style.display == 'block')
-            document.getElementById('editmodulesform').style.display = 'none';
-        else document.getElementById('editmodulesform').style.display = 'block';
-    }
+    var active = 0;
+    var active_num = 0;
 
-    function reveal_panel_remove()
+    function reveal_panel(panel_number)
     {
-        if(document.getElementById('removeplayers').style.display == 'block')
-            document.getElementById('removeplayers').style.display = 'none';
-        else document.getElementById('removeplayers').style.display = 'block';
-    }
+        if(active == 1 && active_num == panel_number)
+        {
+            active = 0;
+            panel_number = 0;
+        }
 
-    function reveal_panel_dices()
-    {
-        if(document.getElementById('editdices').style.display == 'block')
-            document.getElementById('editdices').style.display = 'none';
-        else document.getElementById('editdices').style.display = 'block';
-    }
+        let panel1 = (panel_number == 1) ? 'block' : 'none';
+        let panel2 = (panel_number == 2) ? 'block' : 'none';
+        let panel3 = (panel_number == 3) ? 'block' : 'none';
+        let panel4 = (panel_number == 4) ? 'block' : 'none';
+        let panel5 = (panel_number == 5) ? 'block' : 'none';
+        let panel6 = (panel_number == 6) ? 'block' : 'none';
 
-    function reveal_panel_newname()
-    {
-        if(document.getElementById('changenames').style.display == 'block')
-            document.getElementById('changenames').style.display = 'none';
-        else document.getElementById('changenames').style.display = 'block';
-    }
+        document.getElementById('editmodulesform').style.display = panel1;
+        document.getElementById('addplayersform').style.display = panel2;
+        document.getElementById('removeplayers').style.display = panel3;
+        document.getElementById('changenames').style.display = panel4;
+        document.getElementById('editdices').style.display = panel5;
+        document.getElementById('contactsupport').style.display = panel6;
 
-    function reveal_panel_support()
-    {
-        if(document.getElementById('contactsupport').style.display == 'block')
-            document.getElementById('contactsupport').style.display = 'none';
-        else document.getElementById('contactsupport').style.display = 'block';
+        if(panel_number != 0) active = 1;
+        active_num = panel_number;
     }
 
     function module_quote_checkbox()
