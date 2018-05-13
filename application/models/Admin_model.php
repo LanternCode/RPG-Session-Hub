@@ -6,10 +6,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	     parent::__construct();
 	    }
 
-        function Validate_key($key, $password){
+        function Validate_key($adminid, $password){
 
             $correct = 0;
-            $sql = "SELECT password FROM staff WHERE name = '$key'";
+            $sql = "SELECT password FROM staff WHERE admin_id = '$adminid'";
             $query = $this->db->query($sql);
 
             if(isset($query->row()->password) && strlen($query->row()->password) >= 8){
@@ -20,6 +20,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         }
 
+		function Get_admin_data($admin_id){
 
+			$sql = "SELECT * FROM staff WHERE admin_id = $admin_id";
+			$query = $this->db->query($sql);
+			return ((object) $query->row());
+
+		}
+
+		function Load_tickets(){
+
+			$sql = "SELECT * FROM tickets WHERE status = 0";
+			$query = $this->db->query($sql);
+			$result = $query->result();
+			return $result;
+
+		}
 
 }

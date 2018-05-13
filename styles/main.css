@@ -99,6 +99,11 @@ footer{
     margin-bottom: -20px;
 }
 
+#browsetickets{
+    display: none;
+    border: 1px solid black;
+}
+
 .create--tooltip{
     display: inline;
 }

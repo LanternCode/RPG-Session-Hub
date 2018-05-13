@@ -30,9 +30,11 @@ class Admin extends CI_Controller {
 		$data['adminkey'] = (isset($_POST['adminkey'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['adminkey'])) : -1;
 
 		if($data['adminid'] != -1 && $data['adminkey'] != -1 && $this->Admin_model->Validate_key($data['adminid'], $data['adminkey'])){
+			$data['admin'] = $this->Admin_model->Get_admin_data($data['adminid']);
+			$data['tickets'] = ($data['admin']->ticket_permissions) ? $this->Admin_model->Load_tickets() : 0;
 			$this->load->view('templates/main', $data);
 		}else{
-			redirect(base_url());
+			redirect(base_url('index.php/admin'));
 		}
 
 	}
