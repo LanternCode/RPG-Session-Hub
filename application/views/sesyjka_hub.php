@@ -40,7 +40,8 @@
 
         <div id="editdices">
 
-            <h2>Dices</h2><br><br>
+            <h2>Dices</h2><br>
+            <h6>Checkmark means that the selected dice is active.</h6><br>
             <form method="POST" action="<?=base_url('index.php/session/edit/dices')?>">
                 <?php
                     $k0 = ($dices[0]) ? 'checked' : '';
@@ -84,6 +85,8 @@
             </form>
         </div>
         <div id="addplayersform">
+
+            <h2>Add Players</h2><br>
             <form action="<?=base_url('index.php/session/edit/newuser')?>" method="POST">
                 <label>New user's name:</label><br>
                 <input type="text" name="add_user_name" required /><br><br>
@@ -141,7 +144,7 @@
                     <label>Message:</label><br>
                     <textarea rows="4" cols="50" name="ticket_content" required></textarea><br><br>
 
-                    <input type="submit" value="Submit a ticket" /><br><br>
+                    <input type="submit" value="Submit the message" /><br><br>
                 </form>
 
         </div>

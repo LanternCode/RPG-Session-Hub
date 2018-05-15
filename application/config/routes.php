@@ -10,6 +10,7 @@ $route['listrolls'] = 'Roll/getrolls';
 
 $route['admin'] = 'Admin';
 $route ['adminkey'] = 'Admin/keycheck';
+$route['adminpanel'] = 'Admin/panel';
 
 $route['session/edit/newuser'] = 'Editor/newUser';
 $route['session/edit/modules'] = 'Editor/modules';

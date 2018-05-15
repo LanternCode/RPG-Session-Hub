@@ -30,14 +30,33 @@ class Admin extends CI_Controller {
 		$data['adminkey'] = (isset($_POST['adminkey'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['adminkey'])) : -1;
 
 		if($data['adminid'] != -1 && $data['adminkey'] != -1 && $this->Admin_model->Validate_key($data['adminid'], $data['adminkey'])){
-			$data['admin'] = $this->Admin_model->Get_admin_data($data['adminid']);
-			$data['tickets'] = ($data['admin']->ticket_permissions) ? $this->Admin_model->Load_tickets() : 0;
-			$this->load->view('templates/main', $data);
+			$_SESSION['admin_connected'] = 1;
+			$_SESSION['admin_id'] = $data['adminid'];
+			redirect(base_url('index.php/adminpanel'));
 		}else{
 			redirect(base_url('index.php/admin'));
 		}
 
 	}
+
+	public function panel()
+	{
+		$data = [];
+		$data['title'] = 'Session Hub || Admin Panel';
+		$data['body'] = 'Admincore';
+
+		if(isset($_SESSION['admin_connected']) && $_SESSION['admin_connected'] && isset($_SESSION['admin_id'])){
+
+			$data['admin'] = $this->Admin_model->Get_admin_data($_SESSION['admin_id']);
+			$data['tickets'] = ($data['admin']->ticket_permissions) ? $this->Admin_model->Load_tickets() : 0;
+			$this->load->view('templates/main', $data);
+
+		}else{
+			redirect(base_url('index.php/logout'));
+		}
+
+	}
+
 
 }
 
