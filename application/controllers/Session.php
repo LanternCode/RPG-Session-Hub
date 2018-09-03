@@ -6,15 +6,15 @@ class Session extends CI_Controller {
 
 	public function __construct(){
         parent::__construct();
-        $this->load->model('Roll_model');
-		$this->load->model('Assignment_model');
+        $this->load->model( 'Roll_model' );
+		$this->load->model( 'Assignment_model' );
        }
 
 	public function index()
 	{
 
 		$data = [];
-		$data['key'] = (isset($_GET['key'])) ? mysqli_real_escape_string($this->db->conn_id,$_GET['key']) : "";
+		$data['key'] = isset( $_GET['key'] ) ? mysqli_real_escape_string( $this->db->conn_id, $_GET['key'] ) : "";
 
         if(isset($_SESSION['connected']))
         {

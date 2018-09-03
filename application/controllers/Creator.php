@@ -12,7 +12,7 @@ class Creator extends CI_Controller {
 	public function create_one()
 	{
 
-        if(!isset($_SESSION['connected'])){
+        if( !isset( $_SESSION['connected'] ) ){
 
 		  $data = [];
           $data['session_name'] = (isset($_POST['session_name'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['session_name'])) : -1;
@@ -24,7 +24,7 @@ class Creator extends CI_Controller {
 			  $_SESSION['session_name'] = $data['session_name'];
 			  $_SESSION['participants'] = $data['participants'];
 
-	          $data['body'] = 'Create_two';
+	          $data['body'] = 'createSession/CreatePage2';
 	          $this->load->view('templates/main',$data);
 		  }else{
 			  $data['error_name'] = ($data['session_name'] == -1) ? 1 : 0;
@@ -32,7 +32,7 @@ class Creator extends CI_Controller {
 			  $data['error_participant_count_too_small'] = ($data['participants'] < 2) ? 1 : 0;
 			  $data['error_participant_count_too_high'] = ($data['participants'] > 24) ? 1 : 0;
 
-			 $data['body'] = 'Create';
+			 $data['body'] = 'createSession/CreatePage1';
 			 $this->load->view('templates/main',$data);
 		  }
 
@@ -45,7 +45,8 @@ class Creator extends CI_Controller {
 
 	public function create_two()
 	{
-		if(!isset($_SESSION['connected'])){
+		if(!isset($_SESSION['connected']))
+		{
 		  $data = [];
 
           $data['pcount'] = (isset($_POST['pcount'])) ? mysqli_real_escape_string($this->db->conn_id,$_POST['pcount']) : 0;
@@ -110,7 +111,7 @@ class Creator extends CI_Controller {
 			  $_SESSION['session_user_id'] = $data['session_user_id'];
 			  $_SESSION['session_gm_id'] = $session_gm_id;
 
-	          $data['body'] = 'Create_finish';
+	          $data['body'] = 'createSession/CreatePage3';
 	          $this->load->view('templates/main',$data);
 
 	  	}else{
@@ -119,7 +120,7 @@ class Creator extends CI_Controller {
 			$data['gamemaster_name_error'] = isset($data['p_name0']) ? ((!(strlen($data['p_name0']) > 0)) ? 1 : 0) : 1;
 			$data['p_count_error'] = ($data['real_pcount'] > 1) ? 0 : 1;
 
-			$data['body'] = 'Create_two';
+			$data['body'] = 'createSession/CreatePage2';
 			$this->load->view('templates/main',$data);
 
 		}
@@ -147,13 +148,13 @@ class Creator extends CI_Controller {
 				 session_unset();
 				 session_destroy();
 
-				 $data['body'] = 'Create_summary';
+				 $data['body'] = 'createSession/CreatePage4';
 				 $this->load->view('templates/main',$data);
 
 			 }else{
 
 				 $data['id_error'] = 1;
-				 $data['body'] = 'Create_finish';
+				 $data['body'] = 'createSession/CreatePage3';
 				 $this->load->view('templates/main',$data);
 			 }
 

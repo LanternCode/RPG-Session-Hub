@@ -12,21 +12,21 @@ class Keycheck extends CI_Controller {
        public function index()
        {
 
-		   if(isset($_SESSION['connected'])){
+		   if( isset( $_SESSION['connected'] ) ){
 
-			   redirect(base_url('index.php/sesyjka'));
+			   redirect( base_url( 'index.php/sesyjka' ) );
 
 		   }else{
 
 	           $data = [];
-	           $data['key'] = (isset($_POST['code'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['code'])) : "";
+	           $data['key'] = ( isset( $_POST['code'] ) ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['code'] ) ) : NULL;
 
-	           if(strlen($data['key']) > 0){
+	           if( strlen( $data['key'] ) > 0 ){
 
-	               if($this->Assignment_model->Validate_key($data['key'])){
+	               if( $this->Assignment_model->Validate_key( $data['key'] ) ){
 
 					   $_SESSION['connected'] = 1;
-					   redirect(base_url('sesyjka?key='.$data['key']));
+					   redirect( base_url( 'sesyjka?key='.$data['key'] ) );
 
 				   }else{
 					   $data['key'] = '';
@@ -37,7 +37,7 @@ class Keycheck extends CI_Controller {
 				   }
 
 	           }else{
-	               redirect(base_url());
+	               redirect( base_url() );
 	           }
 
 	   		}

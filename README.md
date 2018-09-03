@@ -7,3 +7,8 @@ CREATE TABLE `sessions`.`staff` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `name` 
 ALTER TABLE `staff` ADD `admin_id` INT(10) NOT NULL AFTER `id`;
 
 ALTER TABLE `tickets` ADD `status` BOOLEAN NOT NULL DEFAULT FALSE AFTER `message`;
+
+TODO list:
+
+1. Default avatars
+2. How many rolls to display? Time limited?
