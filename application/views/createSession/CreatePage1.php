@@ -11,7 +11,7 @@
             <?php
                 if( isset( $error_name ) && $error_name )
                 {
-                    echo("<h4 class='create--error'>Enter the session's name!</h4>");
+                    echo "<h4 class='create--error'>Enter the session's name!</h4>";
                 }
             ?>
             <br />
@@ -21,13 +21,13 @@
             <?php
                 if( isset( $error_participant_count_too_small ) && $error_participant_count_too_small )
                 {
-                    echo("<h4 class='create--error'>The smallest participant count is 2.</h4>");
+                    echo "<h4 class='create--error'>The smallest participant count is 2.</h4>";
                 }
             ?>
             <?php
                 if( isset( $error_participant_count_too_high ) && $error_participant_count_too_high )
                 {
-                    echo("<h4 class='create--error'>The highest participant count is 24.</h4>");
+                    echo "<h4 class='create--error'>The highest participant count is 24.</h4>";
                 }
             ?>
             <br />

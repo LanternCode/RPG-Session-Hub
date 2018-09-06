@@ -2,39 +2,66 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 if(!isset($_SESSION)) session_start();
 
-class Admin extends CI_Controller {
+class Admin extends CI_Controller
+{
 
-	public function __construct(){
-           parent::__construct();
-		   $this->load->model('Admin_model');
-       }
+	public function __construct()
+	{
+    	parent::__construct();
+		$this->load->model( 'Admin_model' );
+    }
 
 	public function index()
 	{
 
-			$data = [];
-			$data['title'] = 'Session Hub || Admin Login';
-			$data['body'] = 'Admin';
-			$this->load->view('templates/main',$data);
+		if( isset( $_SESSION['admin_id'] ) && $_SESSION['admin_id'] )
+		{
+			redirect( base_url( 'index.php/adminPanel' ) );
+		}
+
+		$data = array(
+			'title' => 'Session Hub || Admin Login',
+			'body' => 'adminLogin'
+		);
+		$this->load->view( 'templates/main', $data );
 
 	}
 
 	public function keycheck()
 	{
 
-		$data = [];
-		$data['title'] = 'Session Hub || Admin Login';
-		$data['body'] = 'Admincore';
+		$config = array(
+			array(
+				'field'		=> 'admin--login',
+				'label'		=> "Login",
+				'rules'		=> 'htmlspecialchars|trim|required|alpha_numeric'
+			),
+			array(
+				'field'		=> 'admin--password',
+				'label'		=> "Password",
+				'rules'		=> 'htmlspecialchars|trim|required|alpha_numeric|min_length[8]'
+			)
+		);
 
-		$data['adminid'] = (isset($_POST['adminid'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['adminid'])) : -1;
-		$data['adminkey'] = (isset($_POST['adminkey'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['adminkey'])) : -1;
+		$this->form_validation->set_rules( $config );
 
-		if($data['adminid'] != -1 && $data['adminkey'] != -1 && $this->Admin_model->Validate_key($data['adminid'], $data['adminkey'])){
-			$_SESSION['admin_connected'] = 1;
-			$_SESSION['admin_id'] = $data['adminid'];
-			redirect(base_url('index.php/adminpanel'));
-		}else{
-			redirect(base_url('index.php/admin'));
+		if( $this->form_validation->run() == FALSE )
+		{
+			$data = array(
+				'title' => 'Session Hub || Admin',
+				'body' => 'adminLogin',
+				'incorrectCredentialsError' => TRUE
+			);
+			$this->load->view( 'templates/main', $data );
+		}
+		else
+		{
+			if( $this->Admin_model->Validate_key( $_POST['admin--login'], $_POST['admin--password'] ) )
+			{
+				//$_SESSION['admin_connected'] = 1;
+				$_SESSION['admin_id'] = $_POST['admin--login'];
+				redirect( base_url( 'index.php/adminPanel' ) );
+			}
 		}
 
 	}
@@ -43,17 +70,16 @@ class Admin extends CI_Controller {
 	{
 		$data = [];
 		$data['title'] = 'Session Hub || Admin Panel';
-		$data['body'] = 'Admincore';
+		$data['body'] = 'adminCore';
 
-		if(isset($_SESSION['admin_connected']) && $_SESSION['admin_connected'] && isset($_SESSION['admin_id'])){
-
-			$data['admin'] = $this->Admin_model->Get_admin_data($_SESSION['admin_id']);
-			$data['tickets'] = ($data['admin']->ticket_permissions) ? $this->Admin_model->Load_tickets() : 0;
-			$this->load->view('templates/main', $data);
-
-		}else{
-			redirect(base_url('index.php/logout'));
+		if(/*isset($_SESSION['admin_connected']) && $_SESSION['admin_connected'] && */isset( $_SESSION['admin_id'] ) )
+		{
+			$data['admin'] = $this->Admin_model->Get_admin_data( $_SESSION['admin_id'] );
+			$data['tickets'] = ( $data['admin']->ticket_permissions ) ? $this->Admin_model->Load_tickets() : 0;
+			$this->load->view( 'templates/main', $data );
 		}
+		else redirect( base_url( 'index.php/logout' ) );
+
 
 	}
 

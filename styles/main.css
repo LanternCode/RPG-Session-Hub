@@ -20,6 +20,13 @@ footer{
     color: #FF0000;
 }
 
+.homepage--admin-link,
+.homepage--admin-link:hover{
+    text-decoration: none;
+    color: black;
+    cursor: default;
+}
+
 .link--upgrade{
     color: white;
 }
@@ -72,6 +79,7 @@ footer{
 
 .create--error{
     color: red;
+    text-align: center;
 }
 
 .homepage--error{

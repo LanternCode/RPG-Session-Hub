@@ -22,7 +22,3 @@
         <br><a href="<?=base_url( 'createSession' )?>" role="button" class="btn btn-primary">Create your own session!</a>
     </div>
 </div>
-
-<footer>
-    <p class="foot">iLeanbox <?=date( 'Y' )?> &copy; All rights reserved.</p>
-</footer>

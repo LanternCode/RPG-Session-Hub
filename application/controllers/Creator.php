@@ -1,13 +1,13 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 if(!isset($_SESSION)) session_start();
 
 class Creator extends CI_Controller {
 
-	public function __construct(){
+	public function __construct()
+	{
         parent::__construct();
         $this->load->model('Creator_model');
-       }
+    }
 
 	public function create_one()
 	{

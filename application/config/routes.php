@@ -25,12 +25,10 @@ $route['session/adminwiev']       = "Editor/swap_admin";
 $route['session/edit/addquote']   = "Editor/quote";
 $route['session/sendticket']      = "Editor/newticket";
 
-
-
 //SessionHub Admin panel
-$route['admin']      = 'Admin';
-$route['adminkey']   = 'Admin/keycheck';
-$route['adminpanel'] = 'Admin/panel';
+$route['admin']          = 'Admin';
+$route['adminValidate']  = 'Admin/keycheck';
+$route['adminPanel']     = 'Admin/panel';
 
 //Code Igniter default routes
 $route['default_controller'] = 'Home';

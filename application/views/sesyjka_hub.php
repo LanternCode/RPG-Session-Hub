@@ -1,4 +1,6 @@
-<?php $this->load->helper('quote_helper'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+$this->load->helper('quote_helper'); ?>
+
 <div class="session--hub"><br>
 
     <?php
