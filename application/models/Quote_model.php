@@ -6,7 +6,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	     parent::__construct();
 	    }
 
-        function Get_daily_quote($session_id, $quote_count){
+        function Get_daily_quote($session_id, $quote_count)
+		{
 
 			$quote_num = rand(0, $quote_count-1);
 
@@ -16,7 +17,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $query->row()->quote;
         }
 
-		function Get_session_quote_number($session_id){
+		function Get_session_quote_number($session_id)
+		{
 
 			$sql = "SELECT count(*) AS num FROM quotes WHERE session_id = $session_id";
 			$query = $this->db->query($sql);

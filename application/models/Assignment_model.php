@@ -3,10 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	class Assignment_model extends CI_Model{
 
-		 function __construct(){
-	     parent::__construct();
+		function __construct(){
+	    	parent::__construct();
 	    }
-
 
         function Validate_key($key){
             $sql = "SELECT session_id FROM identificators WHERE user_id = '$key' OR gm_id = '$key'";
@@ -21,7 +20,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $sql = "SELECT session_id FROM identificators WHERE gm_id = '$key' OR user_id = '$key'";
             $query = $this->db->query($sql);
 
-            return $query->row()->session_id;
+			$sessionID = 0;
+			if(isset( $query->row()->session_id )) $sessionID = $query->row()->session_id;
+
+            return $sessionID;
 
         }
 

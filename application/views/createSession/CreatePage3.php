@@ -22,7 +22,3 @@
         <input type="submit" class="btn btn-info" value="Create session!" />
     </form>
 </div>
-
-<footer class="session--copyright--box">
-    <p class="session--copyright">iLeanbox 2018 &copy; All rights reserved.</p>
-</footer>

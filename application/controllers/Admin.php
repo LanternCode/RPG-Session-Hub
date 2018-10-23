@@ -21,7 +21,7 @@ class Admin extends CI_Controller
 
 		$data = array(
 			'title' => 'Session Hub || Admin Login',
-			'body' => 'adminLogin'
+			'body' => 'admin/adminLogin'
 		);
 		$this->load->view( 'templates/main', $data );
 
@@ -49,7 +49,7 @@ class Admin extends CI_Controller
 		{
 			$data = array(
 				'title' => 'Session Hub || Admin',
-				'body' => 'adminLogin',
+				'body' => 'admin/adminLogin',
 				'incorrectCredentialsError' => TRUE
 			);
 			$this->load->view( 'templates/main', $data );
@@ -70,7 +70,7 @@ class Admin extends CI_Controller
 	{
 		$data = [];
 		$data['title'] = 'Session Hub || Admin Panel';
-		$data['body'] = 'adminCore';
+		$data['body'] = 'admin/adminCore';
 
 		if(/*isset($_SESSION['admin_connected']) && $_SESSION['admin_connected'] && */isset( $_SESSION['admin_id'] ) )
 		{

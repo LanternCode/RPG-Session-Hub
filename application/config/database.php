@@ -5,10 +5,10 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $debugging = 1;
-$hostname = $debugging ? 'localhost' : 'sql.infinity123.nazwa.pl';
-$username = $debugging ? 'root' : 'infinity123_sessions';
+$hostname = $debugging ? 'localhost' : 'sql.leanboxptr.nazwa.pl';
+$username = $debugging ? 'root' : 'leanboxptr_rpgsessionhubdb';
 $password = $debugging ? '' : 'Rq9:gM3nABJE_%C)iz*y4fpD';
-$database = $debugging ? 'sessions' : 'infinity123_sessions';
+$database = $debugging ? 'sessions' : 'leanboxptr_rpgsessionhubdb';
 
 $db['default'] = array(
 	'dsn'	=> '',

@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $debugging = 1;
-$url = $debugging ? '' : 'http://leanbox.tk/';
+$url = $debugging ? '' : 'http://rpgsessionhub.pl/';
 
 $config['base_url'] = $url;
 

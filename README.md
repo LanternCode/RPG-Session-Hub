@@ -1,10 +1,13 @@
 
 ```SQL
-ALTER TABLE `sessions` ADD `quotes_all` BOOLEAN NOT NULL DEFAULT FALSE AFTER `quotes`, ADD `goddice` BOOLEAN NOT NULL DEFAULT FALSE AFTER `quotes_all`, ADD `goddice_all` BOOLEAN NOT NULL DEFAULT FALSE AFTER `goddice`;
 
 CREATE TABLE `sessions`.`staff` ( `id` INT(10) NOT NULL AUTO_INCREMENT , `name` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL , `password` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL , `rank` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL , `ticket_permissions` BOOLEAN NOT NULL DEFAULT FALSE , PRIMARY KEY (`id`)) ENGINE = MyISAM;
 
+CREATE TABLE `sessions`.`tickets` ( `id` INT NOT NULL AUTO_INCREMENT , `session_id` INT NOT NULL , `title` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL , `message` VARCHAR(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL , PRIMARY KEY (`id`)) ENGINE = MyISAM;
+
 ALTER TABLE `staff` ADD `admin_id` INT(10) NOT NULL AFTER `id`;
+
+ALTER TABLE `sessions` ADD `quotes_all` BOOLEAN NOT NULL DEFAULT FALSE AFTER `quotes`, ADD `goddice` BOOLEAN NOT NULL DEFAULT FALSE AFTER `quotes_all`, ADD `goddice_all` BOOLEAN NOT NULL DEFAULT FALSE AFTER `goddice`;
 
 ALTER TABLE `tickets` ADD `status` BOOLEAN NOT NULL DEFAULT FALSE AFTER `message`;
 
@@ -21,6 +24,10 @@ ALTER TABLE `ranks` ADD `checkAllUsers` BOOLEAN NOT NULL DEFAULT FALSE AFTER `ch
 INSERT INTO `ranks` (`id`, `rankID`, `rankName`, `rankColour`, `ticket`, `browseSessions`, `editSessions`, `banUsers`, `unbanUsers`, `checkUsers`, `checkAllUsers`, `contactUsers`, `grantLowerRanks`, `grantHigherRanks`, `manageRanks`) VALUES (NULL, '4', 'Helper', '#2ba1ea', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 
 INSERT INTO `ranks` (`id`, `rankID`, `rankName`, `rankColour`, `ticket`, `browseSessions`, `editSessions`, `banUsers`, `unbanUsers`, `checkUsers`, `checkAllUsers`, `contactUsers`, `grantLowerRanks`, `grantHigherRanks`, `manageRanks`) VALUES (NULL, '5', 'User', NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+
+ALTER TABLE `quotes` ADD `session_id` INT NOT NULL AFTER `quote`;
+
+UPDATE quotes SET session_id = 35
 
 TODO list:
 

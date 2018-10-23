@@ -13,9 +13,7 @@
         }
         else
         {
-             session_unset();
-             session_destroy();
-             redirect( base_url() );
+             redirect( base_url( 'logout' ) );
         }
      }
 
@@ -69,12 +67,12 @@
 
     <p>Now the last step, please give your e-mail address.</p><br />
     <p>It's necessary to generate identificators.</p><br />
-    <p>Don't worry, you can hold an unlimited amount of sessions on one address.</p>
+    <p>Don't worry, you can hold an unlimited amount of sessions on one address.</p><br /><br />
     <!-- <p>It's necessary to retrieve the identificators if you lose them!</p><br />
     <p>You'll instantly receive two identificators on your email address.</p><br />
     <p>Make sure to give the user key to the participants!</p><br /><br /> -->
 
-    <label>E-mail address:</label><br />
+    <label>E-mail address:</label>
     <input type="email" name="session_host" required><br />
     <?php
         if( isset( $error_mail ) )
@@ -89,7 +87,3 @@
     <input type="submit" role="button" class="btn btn-info" value="Submit" />
 
 </div>
-
-<footer class="session--copyright--box">
-    <p class="session--copyright">iLeanbox 2018 &copy; All rights reserved.</p>
-</footer>

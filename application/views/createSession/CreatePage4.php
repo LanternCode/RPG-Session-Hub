@@ -13,11 +13,7 @@
     <!-- <p>These identificators were send to your email address.</p>
     <br /> -->
     <p>Make sure to give user's id to each of the participants!</p>
-    <br />
-    <br />
+    <br /><br />
+    
     <a href="<?=base_url()?>" role="button" class="btn btn-info">Back to homepage</a>
 </div>
-
-<footer class="session--copyright--box">
-    <p class="session--copyright">iLeanbox 2018 &copy; All rights reserved.</p>
-</footer>

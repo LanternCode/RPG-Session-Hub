@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-$this->load->helper('quote_helper'); ?>
+$this->load->helper( 'quote_helper' ); ?>
 
 <div class="session--hub"><br>
 
@@ -28,15 +28,15 @@ $this->load->helper('quote_helper'); ?>
 
             <a role="button" class="btn btn-primary" href="#" onclick="reveal_panel(5)">Dice Settings</a>
             <a href="#" role="button" class="btn btn-primary" onclick="reveal_panel(6)">Contact Session-Hub's support</a>
-            <a role="button" class="btn btn-info" href="<?=base_url('index.php/session/changewiev')?>">Switch to user's view</a><?php
+            <a role="button" class="btn btn-info" href="<?=base_url( 'index.php/session/changewiev' )?>">Switch to user's view</a><?php
 
         }
 
         if(isset($_SESSION['admin']) && $_SESSION['admin'] == 0){ ?>
-            <a class="btn btn-info" role="button" href="<?=base_url('index.php/session/adminwiev')?>">Switch to admin's view</a><?php
+            <a class="btn btn-info" role="button" href="<?=base_url( 'index.php/session/adminwiev' )?>">Switch to admin's view</a><?php
         } ?>
 
-        <a role="button" class="btn btn-warning" href="<?=base_url('index.php/logout')?>">Logout</a>
+        <a role="button" class="btn btn-warning" href="<?=base_url( 'index.php/logout' )?>">Logout</a>
 
         <?php if(isset($_SESSION['admin']) && $_SESSION['admin']){ ?>
 
@@ -44,7 +44,7 @@ $this->load->helper('quote_helper'); ?>
 
             <h2>Dices</h2><br>
             <h6>Checkmark means that the selected dice is active.</h6><br>
-            <form method="POST" action="<?=base_url('index.php/session/edit/dices')?>">
+            <form method="POST" action="<?=base_url( 'index.php/session/edit/dices' )?>">
                 <?php
                     $k0 = ($dices[0]) ? 'checked' : '';
                     $k1 = ($dices[1]) ? 'checked' : '';
@@ -66,7 +66,7 @@ $this->load->helper('quote_helper'); ?>
 
         </div>
         <div id="editmodulesform">
-            <form action="<?=base_url('index.php/session/edit/modules')?>" method="POST">
+            <form action="<?=base_url( 'index.php/session/edit/modules' )?>" method="POST">
                 <h3>Modules eligible for activation:</h3><br><br>
 
                 <label>
@@ -89,7 +89,7 @@ $this->load->helper('quote_helper'); ?>
         <div id="addplayersform">
 
             <h2>Add Players</h2><br>
-            <form action="<?=base_url('index.php/session/edit/newuser')?>" method="POST">
+            <form action="<?=base_url( 'index.php/session/edit/newuser' )?>" method="POST">
                 <label>New user's name:</label><br>
                 <input type="text" name="add_user_name" required /><br><br>
 
@@ -102,7 +102,7 @@ $this->load->helper('quote_helper'); ?>
         <div id="changenames">
 
             <?php for($i = 0; $i < $session->participants; ++$i){ ?>
-                <form method="POST" action="<?=base_url('index.php/session/edit/name')?>">
+                <form method="POST" action="<?=base_url( 'index.php/session/edit/name' )?>">
                     <h2><?=$participants[$i]->name?></h2><br><br>
 
                     <label>New name:</label><br>
@@ -124,7 +124,7 @@ $this->load->helper('quote_helper'); ?>
             <h2>User list</h2>
             <?php for($i = 0; $i < $session->participants; ++$i){
                 $gm = $participants[$i]->rank;
-                $href = ($gm) ? '#' : base_url("index.php/session/edit/removeuser?id=".$participants[$i]->p_id);
+                $href = ($gm) ? '#' : base_url('index.php/session/edit/removeuser?id='.$participants[$i]->p_id);
                 $button_color = ($gm) ? 'btn-info' : 'btn-danger';
                 $message = ($gm) ? 'GM' : 'Remove'; ?>
             <div class="session--admin__remove">
@@ -137,7 +137,7 @@ $this->load->helper('quote_helper'); ?>
         </div>
         <div id="contactsupport">
 
-                <form method="POST" action="<?=base_url('index.php/session/sendticket')?>">
+                <form method="POST" action="<?=base_url( 'index.php/session/sendticket' )?>">
                     <h2>Tell us what's bothering you by sending us a message:</h2><br><br>
 
                     <label>Message title:</label><br>
@@ -158,12 +158,12 @@ $this->load->helper('quote_helper'); ?>
     <?php } ?>
 
     <br><br>
-    <form class="roll--form padded" method="POST" action="<?=base_url('index.php/roll')?>">
-        <?php if(!isset($_SESSION['who'])){ ?>
+    <form class="roll--form padded" method="POST" action="<?=base_url( 'index.php/roll' )?>">
+        <?php if( !isset( $_SESSION['who'] ) ){ ?>
         <label>Who rolls:</label><br>
         <select name="who">
-            <?php for($i = 0; $i < $session->participants; ++$i){?>
-            <option value="<?=$participants[$i]->name?>"><?=$participants[$i]->name?></option>
+            <?php for($i = 0; $i < $session->participants; ++$i){ ?>
+                <option value="<?=$participants[$i]->name?>"><?=$participants[$i]->name?></option>
             <?php } ?>
         </select><br><br><?php } ?>
 
@@ -171,13 +171,17 @@ $this->load->helper('quote_helper'); ?>
             $val = (($i == 0) ? 'K4 ' : (($i == 1) ? 'K6 ' : (($i == 2) ? 'K8 ' :
             (($i == 3) ? 'K10 ' : (($i == 4) ? 'K12 ' : (($i == 5) ? 'K20 ' : (($i == 6) ? 'K100 ' : 0)))))));
 
-            if($dices[$i]){ ?>
-            <label><input type="radio" name="dice" value="<?=$val?>" checked/><?=$val?></label>
-        <?php }}
+            if( $dices[$i] ){
+        ?>
+            <label class="session--roll--radioButton">
+                <input type="radio" name="dice" value="<?=$val?>" <?=(($i == 5) ? 'checked' : '') ?> /><?=$val?>
+            </label>
+        <?php }
+        }
 
         if($dice_checked && ($dice_checked_all || $_SESSION['admin'])) {
             echo('<label><input type="radio" name="dice" value="god" />Godly Dice</label><br>');
-        }else{ echo('<br>'); } ?>
+        }else echo('<br>'); ?>
 
         <label>Rolls for:</label><br><br>
         <input type="text" name="comment"><br>
@@ -188,7 +192,7 @@ $this->load->helper('quote_helper'); ?>
     <p>The participants of the session: </p><br><br>
 
     <div class="row">
-        <?php for($i = 0; $i < $session->participants; ++$i){?>
+        <?php for($i = 0; $i < $session->participants; ++$i){ ?>
             <div class="col">
                 <?php if($participants[$i]->avatar != "0") { ?>
                     <img class="hub--avatar" src="<?=$participants[$i]->avatar?>"/><br>
@@ -196,35 +200,33 @@ $this->load->helper('quote_helper'); ?>
                 <?=$participants[$i]->name?>
             </div>
         <?php } ?>
-   </div>
+    </div>
 
     <h3>Recent rolls: </h3>
 
     <div class="lastrolls">
-        <iframe src="<?=base_url('index.php/listrolls')?>"></iframe>
+        <iframe src="<?=base_url( 'index.php/listrolls' )?>"></iframe>
     </div><br>
 
-    <?php if($quote_checked && ($quote_checked_all || $_SESSION['admin'])){ ?>
+    <?php if($quote_checked && ($quote_checked_all || (isset( $_SESSION['admin'] ) && $_SESSION['admin']))){ ?>
 
         <h2>Insert quote:</h2><br>
-        <form method="POST" action="<?=base_url('index.php/session/edit/addquote')?>">
+        <form method="POST" action="<?=base_url( 'index.php/session/edit/addquote' )?>">
             <label>Quote to add:</label>
             <input type="text" name="add_quote" required /><br>
-            <input type="submit" value="Add quote!" />
+            <input type="submit" class="btn btn-info" value="Add quote!" />
         </form><br><br>
 
     <?php } ?>
 
 </div>
-<footer class="session--copyright--box">
-    <p class="session--copyright">iLeanbox 2018 &copy; All rights reserved.</p>
-</footer>
+
 <script type="text/javascript">
 
     var active = 0;
     var active_num = 0;
 
-    function reveal_panel(panel_number)
+    function reveal_panel( panel_number )
     {
         if(active == 1 && active_num == panel_number)
         {
@@ -246,7 +248,8 @@ $this->load->helper('quote_helper'); ?>
         document.getElementById('editdices').style.display = panel5;
         document.getElementById('contactsupport').style.display = panel6;
 
-        if(panel_number != 0) active = 1;
+        if( panel_number != 0 ) active = 1;
+
         active_num = panel_number;
     }
 

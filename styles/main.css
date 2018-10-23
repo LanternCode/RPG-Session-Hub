@@ -5,10 +5,14 @@
     background-color: #ededed;
 }
 
+body{
+    background-color: #ededed;
+}
+
 footer{
     display: block;
     text-align: center;
-    margin: 20px;
+    margin-top: 20px;
 }
 
 .homepage--logo__brand{
@@ -36,16 +40,16 @@ footer{
     border: 1px solid black;
     padding: 15px;
     text-align: center;
-    /* position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
     margin-left: auto;
     margin-right: auto;
 }
 
 .session--hub{
     text-align: center;
+}
+
+.session--roll--radioButton{
+    margin-right: 10px;
 }
 
 .roll__bold{
@@ -87,16 +91,6 @@ footer{
     text-align: center;
     font-size: 20px;
     margin-bottom: 50px;
-}
-
-.session--copyright--box{
-    position:relative;
-}
-
-.session--copyright{
-    position:absolute;
-    bottom:0;
-    right:0;
 }
 
 #addplayersform, #editmodulesform, #removeplayers, #editdices, #changenames, #contactsupport{
