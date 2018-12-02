@@ -112,7 +112,7 @@ $this->load->helper( 'quote_helper' ); ?>
 
             <?php for($i = 0; $i < $session->participants; ++$i){ ?>
                 <form method="POST" action="<?=base_url( 'userSpace/session/edit/name' )?>">
-                    <h2><?=$participants[$i]->name?></h2><br /><br />
+                    <h2><?=isset($participants[$i]->name) ? $participants[$i]->name : 0?></h2><br /><br />
 
                     <label>New name:</label><br />
                     <input type="text" name="new_name" /><br /><br />
@@ -120,7 +120,7 @@ $this->load->helper( 'quote_helper' ); ?>
                     <label>New avatar:</label><br />
                     <input type="text" name="new_avatar" /><br /><br />
 
-                    <input type="hidden" name="p_id" value="<?=$participants[$i]->id?>">
+                    <input type="hidden" name="p_id" value="<?=isset($participants[$i]->id) ? $participants[$i]->id : 0?>">
                     <input type="submit" value="Save changes" /><br /><br />
 
                     <div class="session--admin__editname"></div>
@@ -133,13 +133,13 @@ $this->load->helper( 'quote_helper' ); ?>
             <h2>User list</h2>
             <?php
             for($i = 0; $i < $session->participants; ++$i){
-                $gm = $participants[$i]->rank;
-                $href = $gm ? '#' : base_url( 'userSpace/session/edit/removeuser?id=' . $participants[$i]->id );
+                $gm = (isset($participants[$i]->rank) ? $participants[$i]->rank : 0);
+                $href = $gm ? '#' : base_url( 'userSpace/session/edit/removeuser?id=' . (isset($participants[$i]->id) ? $participants[$i]->id : 0) );
                 $button_color = $gm ? 'btn-info' : 'btn-danger';
                 $message = $gm ? 'GM' : 'Remove';
             ?>
                 <div class="session--admin__remove">
-                    <?=$participants[$i]->name?>
+                    <?=isset($participants[$i]->name) ? $participants[$i]->name : ''?>
                     <a href="<?=$href?>" role="button" class="btn <?=$button_color?>"><?=$message?></a>
                 </div>
             <?php
@@ -188,10 +188,10 @@ $this->load->helper( 'quote_helper' ); ?>
     <div class="row">
         <?php for($i = 0; $i < $session->participants; ++$i){ ?>
             <div class="col">
-                <?php if($participants[$i]->avatar != "0") { ?>
+                <?php if(isset($participants[$i]->avatar) && $participants[$i]->avatar != "0") { ?>
                     <img class="hub--avatar" src="<?=$participants[$i]->avatar?>"/><br />
                 <?php } ?>
-                <?=$participants[$i]->name?>
+                <?=isset($participants[$i]->name) ? $participants[$i]->name : ''?>
             </div>
         <?php } ?>
     </div>

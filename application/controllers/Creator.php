@@ -9,8 +9,9 @@ class Creator extends CI_Controller {
 	{
         parent::__construct();
         $this->load->model('Creator_model');
-		$this->load->model('userModel');
-		$this->load->model('sessionModel');
+		$this->load->model('UserModel');
+		$this->load->model('SessionModel');
+		$this->load->model('SecurityModel');
     }
 
 	public function create_one()
@@ -70,7 +71,7 @@ class Creator extends CI_Controller {
 
 			$gmName   = isset( $_POST['gamemasterName'] ) ? mysqli_real_escape_string( $this->db->conn_id, $_POST['gamemasterName'] ) : 0;
 			$gmAvatar = (isset($_POST['gamemasterAvatarURL'])) ? mysqli_real_escape_string($this->db->conn_id,$_POST['gamemasterAvatarURL']) : 0;
-			$gmEmail  = $this->userModel->getUserEmailById( $_SESSION['userId'] );
+			$gmEmail  = $this->UserModel->getUserEmailById( $_SESSION['userId'] );
 			$data['realPlayerCount'] = ($gmName && $gmEmail) ? 1 : 0;
 
 	  		for( $i = 0; $i < $data['playerCount']-1 ; ++$i )
@@ -115,29 +116,29 @@ class Creator extends CI_Controller {
 
 	  			$this->Creator_model->Assign_dices( $data['session_id'], $data['dices'] );
 
-				$gmEmail = $this->userModel->getUserEmailById( $_SESSION['userId'] );
+				$gmEmail = $this->UserModel->getUserEmailById( $_SESSION['userId'] );
 	  			for( $i = 0; $i < $data['realPlayerCount']; ++$i )
 				{
 	  				if( $i == (  $data['realPlayerCount'] - 1 ) )
 					{
-						$this->sessionModel->addParticipant( $_SESSION['userId'], $data['session_id'] , $gmName, $gmAvatar, 1 );
+						$this->SessionModel->addParticipant( $_SESSION['userId'], $data['session_id'] , $gmName, $gmAvatar, 1 );
 					}
 					else
 					{
-						if( $this->securityModel->userNotInvitedNorParticipates( $data['p_email' . $i], $data['session_id'] )
+						if( $this->SecurityModel->userNotInvitedNorParticipates( $data['p_email' . $i], $data['session_id'] )
 							&& $gmEmail != $data['p_email' . $i] )
 						{
-							$this->userModel->addInvite( $data['p_email' . $i], $data['session_id'] );
-							$this->userModel->sendEmailInvitation( $data['p_email' . $i], $_SESSION['session_name'], $gmName );
+							$this->UserModel->addInvite( $data['p_email' . $i], $data['session_id'] );
+							$this->UserModel->sendEmailInvitation( $data['p_email' . $i], $_SESSION['session_name'], $gmName );
 
-							$this->sessionModel->addParticipant( $data['p_email' . $i], $data['session_id'],
+							$this->SessionModel->addParticipant( $data['p_email' . $i], $data['session_id'],
 							 	"(INVITED) " . $data['p_name' . $i], $data['p_avatar' . $i], 0 );
 						}
 					}
 	  			}
 
-				if( $data['playerCount'] == $data['realPlayerCount'] )
-					$this->sessionModel->setParticipantCount( $data['session_id'], $data['realPlayerCount'] );
+				if( $data['playerCount'] != $data['realPlayerCount'] )
+					$this->SessionModel->setParticipantCount( $data['session_id'], $data['realPlayerCount'] );
 
 	  	        $data['body'] = 'createSession/CreatePageEnd';
 	  	        $this->load->view( 'templates/main', $data );

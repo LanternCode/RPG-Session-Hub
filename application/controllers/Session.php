@@ -24,7 +24,7 @@ class Session extends CI_Controller {
 		{
 			redirect( base_url( 'sessionExpired' ) );
 		}
-		else if( $this->securityModel->userHasNoAccessToSession( $_SESSION['userId'], $data['sessionId'] ) )
+		else if( $this->SecurityModel->userHasNoAccessToSession( $_SESSION['userId'], $data['sessionId'] ) )
 		{
 			redirect( base_url( 'userSpace' ) );
 		}
@@ -32,7 +32,7 @@ class Session extends CI_Controller {
         {
 			$_SESSION['connectedSessionId'] = $data['sessionId'];
 
-			$data['GM']            = $this->userModel->isUserGamemaster( $_SESSION['userId'], $data['sessionId'] ) ? 1 : 0;
+			$data['GM']            = $this->UserModel->isUserGamemaster( $_SESSION['userId'], $data['sessionId'] ) ? 1 : 0;
 			$data['GMViewEnabled'] = isset( $_SESSION['GMViewEnabled'] ) ? $_SESSION['GMViewEnabled'] : ( $data['GM'] ? 1 : 0 );
 			$data['session']       = $this->Assignment_model->Get_all_session_information( $data['sessionId'] );
 			$data['participants']  = $this->Assignment_model->getAllParticipantsInformation( $data['sessionId'] );

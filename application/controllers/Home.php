@@ -99,7 +99,7 @@ class Home extends CI_Controller
 		$data = array(
 			'title'   => 'RPG Session-Hub | Contact Us',
 			'body'    => 'contact',
-			'email'   => isset( $_SESSION['userId'] ) ? $this->userModel->getUserEmailById( $_SESSION['userId'] ) : 0
+			'email'   => isset( $_SESSION['userId'] ) ? $this->UserModel->getUserEmailById( $_SESSION['userId'] ) : 0
 		);
 
 		$this->load->view( 'templates/main', $data );

@@ -53,3 +53,4 @@ TODO list:
 2. Add custom dices, separate the tables
 3. Session visitation
 4. Remember password
+5. In Session - bootstrap buttons
