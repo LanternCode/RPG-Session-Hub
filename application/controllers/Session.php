@@ -9,8 +9,8 @@ class Session extends CI_Controller {
         parent::__construct();
         $this->load->model( 'Roll_model' );
 		$this->load->model( 'Assignment_model' );
-		$this->load->model( 'securityModel' );
-		$this->load->model( 'userModel' );
+		$this->load->model( 'SecurityModel' );
+		$this->load->model( 'UserModel' );
     }
 
 	public function index()

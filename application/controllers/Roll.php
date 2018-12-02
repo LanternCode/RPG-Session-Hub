@@ -1,6 +1,7 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-if(!isset($_SESSION)) session_start();
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+if( !isset( $_SESSION ) )
+	session_start();
 
 class Roll extends CI_Controller {
 
@@ -25,7 +26,6 @@ class Roll extends CI_Controller {
             $data['roll'] = ($data['sec_roll']) ? ($data['first_roll'].' , '.$data['sec_roll']) : $data['first_roll'];
 
          	$this->Roll_model->Update_Roll_History( $data );
-			//$this->Roll_model->Increment_rollcount($data['double']);
 
             redirect( base_url( 'userSpace/session' ) );
 

@@ -1,6 +1,7 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-if(!isset($_SESSION)) session_start();
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+if( !isset( $_SESSION ) )
+	session_start();
 
 class Editor extends CI_Controller {
 
@@ -93,7 +94,7 @@ class Editor extends CI_Controller {
 				$this->sessionModel->updateParticipantCount($_SESSION['connectedSessionId'], 0);
 				redirect( base_url( 'userSpace' ) );
 			}else{
-				//adminowy error
+				//TODO: wtf
 			}
 
 		}
@@ -150,8 +151,8 @@ class Editor extends CI_Controller {
 				$this->sessionModel->Update_user_data($_SESSION['connectedSessionId'], $data['p_id'], $data['name'], $data['avatar']);
 				redirect( base_url( 'userSpace' ) );
 			}else{
-				//adminowy error
-				print_r($data);
+				//TODO: ???
+				//print_r($data);
 			}
 
 		}

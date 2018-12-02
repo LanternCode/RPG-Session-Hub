@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-if(!isset($_SESSION)) session_start();
+
+if( !isset( $_SESSION ) )
+	session_start();
 
 class Creator extends CI_Controller {
 
