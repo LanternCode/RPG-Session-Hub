@@ -1,33 +1,44 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+// User related routes
+$route['newAccount']                 = 'Home/newUser';
+$route['validateRegistration']       = 'Authentication/register';
+$route['userSpace']                  = 'Authentication';
+$route['userSpace/acceptInvitation'] = 'Authentication/accept';
+$route['userSpace/rejectInvitation'] = 'Authentication/reject';
+
 //Related to session-creation
 $route['createSession']           = 'Home/newsession';
 $route['createSession/stepTwo']   = 'Creator/create_one';
 $route['createSession/stepThree'] = 'Creator/create_two';
-$route['createSession/stepFour']  = 'Creator/summary';
 
 //Inside of a Session - core functionality
-$route['key']       = 'Keycheck';
-$route['roll']      = "Roll";
-$route['sesyjka']   = 'Session';
-$route['logout']    = 'Session/close';
-$route['listrolls'] = 'Roll/getrolls';
+$route['userSpace/session']           = 'Session';
+$route['userSpace/session/roll']      = 'Roll';
+$route['userSpace/session/listrolls'] = 'Roll/getrolls';
+$route['userSpace/session/quit']      = 'Session/close';
 
 //Inside of a session - GM's settings
-$route['session/edit/newuser']    = 'Editor/newUser';
-$route['session/edit/modules']    = 'Editor/modules';
-$route['session/edit/removeuser'] = 'Editor/removeusers';
-$route['session/edit/dices']      = 'Editor/dices';
-$route['session/edit/name']       = 'Editor/name';
-$route['session/changewiev']      = "Editor/swap";
-$route['session/adminwiev']       = "Editor/swap_admin";
-$route['session/edit/addquote']   = "Editor/quote";
-$route['session/sendticket']      = "Editor/newticket";
+$route['userSpace/session/edit/newUser']    = 'Editor/newUser';
+$route['userSpace/session/edit/modules']    = 'Editor/modules';
+$route['userSpace/session/edit/removeuser'] = 'Editor/removeusers';
+$route['userSpace/session/edit/dices']      = 'Editor/dices';
+$route['userSpace/session/edit/name']       = 'Editor/name';
+$route['userSpace/session/userView']        = "Editor/userView";
+$route['userSpace/session/adminView']       = "Editor/adminView";
+$route['userSpace/session/edit/addquote']   = "Editor/quote";
 
 //SessionHub Admin panel
 $route['adminLogin']          = 'Admin';
 $route['adminValidate']       = 'Admin/keycheck';
 $route['adminPanel']          = 'Admin/panel';
+
+//Special routes
+$route['TOS']                    = 'Home/termsOfService';
+$route['sessionExpired']         = 'Home/sessionExpired';
+$route['logout']                 = 'Home/logout';
+$route['contact']                = 'Home/contact';
+$route['contact/sendTicket']     = 'Home/submitTicket';
 
 //Code Igniter default routes
 $route['default_controller'] = 'Home';

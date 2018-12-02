@@ -27,7 +27,7 @@ class Roll extends CI_Controller {
          	$this->Roll_model->Update_Roll_History( $data );
 			//$this->Roll_model->Increment_rollcount($data['double']);
 
-            redirect( base_url( 'index.php/sesyjka' ) );
+            redirect( base_url( 'userSpace/session' ) );
 
 		}else redirect( base_url() );
 
@@ -39,7 +39,7 @@ class Roll extends CI_Controller {
 		$data = array(
 			'body' => 'rolllist',
 			'title' => 'Roll History || Session Hub',
-			'rolls' => $this->Roll_model->Get_Roll_History()
+			'rolls' => $this->Roll_model->getRollHistory( $_SESSION['connectedSessionId'] )
 		);
 
 		$this->load->view( 'templates/main', $data );

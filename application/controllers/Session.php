@@ -1,6 +1,7 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-if(!isset($_SESSION)) session_start();
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+if( !isset( $_SESSION ) )
+	session_start();
 
 class Session extends CI_Controller {
 
@@ -8,47 +9,63 @@ class Session extends CI_Controller {
         parent::__construct();
         $this->load->model( 'Roll_model' );
 		$this->load->model( 'Assignment_model' );
-       }
+		$this->load->model( 'securityModel' );
+		$this->load->model( 'userModel' );
+    }
 
 	public function index()
 	{
 
 		$data = [];
-		$data['key'] = isset( $_GET['key'] ) ? mysqli_real_escape_string( $this->db->conn_id, $_GET['key'] ) : "";
+		$data['sessionId'] = isset( $_GET['s'] ) ? mysqli_real_escape_string( $this->db->conn_id, $_GET['s'] ) : 0;
+		$data['sessionId'] = ( isset( $_SESSION['connectedSessionId'] ) && $_SESSION['connectedSessionId'] ) ? $_SESSION['connectedSessionId'] : $data['sessionId'];
 
-        if(isset($_SESSION['connected']))
+		if( !isset( $_SESSION['userId'] ) )
+		{
+			redirect( base_url( 'sessionExpired' ) );
+		}
+		else if( $this->securityModel->userHasNoAccessToSession( $_SESSION['userId'], $data['sessionId'] ) )
+		{
+			redirect( base_url( 'userSpace' ) );
+		}
+        else
         {
+			$_SESSION['connectedSessionId'] = $data['sessionId'];
 
-			if(!isset($_SESSION['session_id'])){
-				$session_id = $this->Assignment_model->Get_session_id_by_key($data['key']);
-				$_SESSION['session_id'] = $session_id;
+			$data['GM']            = $this->userModel->isUserGamemaster( $_SESSION['userId'], $data['sessionId'] ) ? 1 : 0;
+			$data['GMViewEnabled'] = isset( $_SESSION['GMViewEnabled'] ) ? $_SESSION['GMViewEnabled'] : ( $data['GM'] ? 1 : 0 );
+			$data['session']       = $this->Assignment_model->Get_all_session_information( $data['sessionId'] );
+			$data['participants']  = $this->Assignment_model->getAllParticipantsInformation( $data['sessionId'] );
+			$data['rolls']         = $this->Roll_model->getRollHistory( $data['sessionId'] );
+			$data['dices']         = explode( ',', $data['session']->dices );
+
+			$data['myParticipantName'] = "Player X";
+			$data['sessionGamemasterName'] = "The GameMaster";
+			foreach( $data['participants'] as $participant )
+			{
+				if( $participant->userId == $_SESSION['userId'] )
+					$data['myParticipantName'] = $participant->name;
+
+				if( $participant->rank == 1 )
+					$data['sessionGamemasterName'] = $participant->name;
 			}
 
-			$data['admin'] = ($data['key'] == $this->Assignment_model->Get_admin_key($_SESSION['session_id'])) ? 1 : 0;
-			if($data['admin']) $_SESSION['admin'] = 1;
-			$data['session'] = $this->Assignment_model->Get_all_session_information($_SESSION['session_id']);
-			$data['participants'] = $this->Assignment_model->Get_all_participant_information($_SESSION['session_id']);
-			$data['rolls'] = $this->Roll_model->Get_Roll_History();
-			$data['dices'] = explode(',',$data['session']->dices);
 
-      		$data['body'] = 'sesyjka_hub';
-			$data['title'] = $data['session']->name . ' || Session Hub';
 
-            $this->load->view('templates/main',$data);
+      		$data['body']  = 'sesyjka_hub';
+			$data['title'] = $data['session']->name . ' || RPG Session-Hub';
 
-        }else{
-            redirect(base_url());
+			$this->load->view( 'templates/main', $data );
         }
-
 	}
 
     public function close()
     {
-        session_unset();
-        session_destroy();
-        redirect(base_url());
+        $_SESSION['connectedSessionId'] = NULL;
+		$_SESSION['who'] = NULL;
+		$_SESSION['GMViewEnabled'] = NULL;
+
+        redirect( base_url( 'userSpace' ) );
     }
 
 }
-
-?>

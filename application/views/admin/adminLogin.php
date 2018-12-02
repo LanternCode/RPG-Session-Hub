@@ -5,11 +5,11 @@
     <h3>Found yourself there by mistake? Press <a href="<?=base_url()?>" role="button" class="btn btn-primary">Here</a> to go back.</h3>
 </div>
 
-<?=isset($incorrectCredentialsError) ? "<h4 class='create--error'>Given credentials were not correct.</h4><br />" : NULL?>
+<?=isset( $incorrectCredentialsError ) ? "<h4 class='create--error'>Given credentials were not correct.</h4><br />" : NULL?>
 
 <div class="homepage--body">
     <div class="homepage--login__form">
-        <form method="POST" action="<?=base_url( 'index.php/adminValidate' )?>">
+        <form method="POST" action="<?=base_url( 'adminValidate' )?>">
             <label>Login:</label><br />
             <input type="text" name="admin--login" autocomplete="off"><br /><br />
 

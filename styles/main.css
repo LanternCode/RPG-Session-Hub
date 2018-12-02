@@ -93,7 +93,23 @@ footer{
     margin-bottom: 50px;
 }
 
-#addplayersform, #editmodulesform, #removeplayers, #editdices, #changenames, #contactsupport{
+.registration--error{
+    color: red;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.homepage--registered{
+    color: green;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+#addplayersform, #editmodulesform, #removeplayers, #editdices, #changenames{
     display: none;
     border: 1px solid black;
     margin-top: 20px;
@@ -108,6 +124,10 @@ footer{
 
 .create--tooltip{
     display: inline;
+}
+
+.create--finished--div {
+    text-align: center;
 }
 
 .session--admin__remove{
@@ -145,5 +165,100 @@ footer{
 }
 
 .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.register--form {
+    text-align: center;
+    margin: 15px;
+}
+
+.register--input {
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.register--grayed {
+    color: gray;
+}
+
+.register--section {
+    margin: 20px;
+}
+
+.userspace--welcome, .userspace--navigation, td {
+    text-align: center;
+}
+
+.userspace--welcome {
+    margin: 20px;
+}
+
+.userspace--navigation--item {
+    display: inline;
+    margin: 1px;
+    padding-right: 5px;
+    border-right: 1px solid black;
+}
+
+.userspace--navigation--item__last {
+    display: inline;
+    margin: 1px;
+}
+
+.userspace--createPrompt {
+    font-weight: bold;
+    text-align: center;
+}
+
+.userspace--sessions {
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.userspace--sessions--header__item, td {
+    padding: 5px;
+}
+
+td, th {
+    border-bottom: 1px solid gray;
+}
+
+.userspace--mysessions {
+    text-align: center;
+    margin: 20px;
+    color: gray;
+}
+
+.userspace--sessions--msg__nosessions {
+    text-align: center;
+    border: 2px solid black;
+    width: 370px;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tos--paragraph {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tos--button {
+    text-align: center;
+}
+
+.contact--form {
+    text-align: center;
+}
+
+.contact--form--header {
+    display: block;
+}
+
+.contact--form--item {
     display: block;
 }

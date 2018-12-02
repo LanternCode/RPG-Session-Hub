@@ -6,27 +6,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	     parent::__construct();
 	    }
 
-      function Update_Roll_History($data=[]){
+      function Update_Roll_History($data=[])
+	  {
           $data = (object) $data;
           $who = $_SESSION['who'];
-					$session_id = $_SESSION['session_id'];
+		  $sessionId = $_SESSION['connectedSessionId'];
           date_default_timezone_set('Poland');
-					$time = date('Y/m/d H:i:s');
+			$time = date('Y/m/d H:i:s');
 
-          $sql = "INSERT INTO rolls(session_id, value, who, what, rolldate, doubleroll)VALUES($session_id,'$data->roll','$who','$data->comment','$time',$data->double)";
+          $sql = "INSERT INTO rolls(session_id, value, who, what, rolldate, doubleroll)VALUES($sessionId,'$data->roll','$who','$data->comment','$time',$data->double)";
           $query = $this->db->query($sql);
 
           return 1;
       }
 
-		function Get_Roll_History()
+		function getRollHistory( $sessionId )
 		{
-
-			$id = $_SESSION['session_id'];
 
 			$sql = "SELECT value, who, what, doubleroll
 			FROM rolls
-			WHERE session_id = '$id'
+			WHERE session_id = $sessionId
 			ORDER BY rollid DESC
 			LIMIT 50";
 

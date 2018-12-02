@@ -16,7 +16,11 @@ class Admin extends CI_Controller
 
 		if( isset( $_SESSION['admin_id'] ) && $_SESSION['admin_id'] )
 		{
-			redirect( base_url( 'index.php/adminPanel' ) );
+			redirect( base_url( 'adminPanel' ) );
+		}
+		else if( isset( $_SESSION['connectedSessionId'] ) && $_SESSION['connectedSessionId'])
+		{
+			redirect( base_url( 'sesyjka' ) );
 		}
 
 		$data = array(
@@ -60,7 +64,7 @@ class Admin extends CI_Controller
 			{
 				//$_SESSION['admin_connected'] = 1;
 				$_SESSION['admin_id'] = $_POST['admin--login'];
-				redirect( base_url( 'index.php/adminPanel' ) );
+				redirect( base_url( 'adminPanel' ) );
 			}
 		}
 
@@ -78,7 +82,7 @@ class Admin extends CI_Controller
 			$data['tickets'] = ( $data['admin']->ticket_permissions ) ? $this->Admin_model->Load_tickets() : 0;
 			$this->load->view( 'templates/main', $data );
 		}
-		else redirect( base_url( 'index.php/logout' ) );
+		else redirect( base_url( 'logout' ) );
 
 
 	}

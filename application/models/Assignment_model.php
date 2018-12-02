@@ -7,7 +7,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	    	parent::__construct();
 	    }
 
-        function Validate_key($key){
+        function Validate_key($key)
+		{
             $sql = "SELECT session_id FROM identificators WHERE user_id = '$key' OR gm_id = '$key'";
             $query = $this->db->query($sql);
 
@@ -15,7 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             else return 0;
         }
 
-        function Get_session_id_by_key($key){
+        function Get_session_id_by_key($key)
+		{
 
             $sql = "SELECT session_id FROM identificators WHERE gm_id = '$key' OR user_id = '$key'";
             $query = $this->db->query($sql);
@@ -27,27 +29,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         }
 
-        function Get_all_session_information($session_id){
+        function Get_all_session_information($sessionId)
+		{
 
-            $sql = "SELECT name, participants, dices, quotes, quotes_all, goddice, goddice_all FROM sessions WHERE id = $session_id";
+            $sql = "SELECT name, participants, dices, quotes, quotes_all, goddice, goddice_all FROM sessions WHERE id = $sessionId";
 
              $query = $this->db->query($sql);
              return $query->row();
 
         }
 
-        function Get_all_participant_information($session_id){
-
-            $sql = "SELECT name, avatar, rank, p_id FROM participants WHERE session_id = $session_id";
+        function getAllParticipantsInformation( $sessionId )
+		{
+            $sql = "SELECT name, avatar, rank, id, userId FROM participants WHERE session_id = $sessionId";
 
             $query = $this->db->query($sql);
             return $query->result();
-
         }
 
-		function Get_admin_key($session_id){
+		function Get_admin_key($sessionId)
+		{
 
-			$sql = "SELECT gm_id FROM identificators WHERE session_id = $session_id";
+			$sql = "SELECT gm_id FROM identificators WHERE session_id = $sessionId";
 
 			$query = $this->db->query($sql);
 			return $query->row()->gm_id;
