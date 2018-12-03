@@ -47,10 +47,23 @@ CREATE TABLE `sessions`.`avatars` ( `id` INT NOT NULL , `URL` VARCHAR NOT NULL ,
 
 ALTER TABLE `tickets` CHANGE `session_id` `senderEmail` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL;
 
+--
+
+ALTER TABLE `staff` DROP `ticket_permissions`;
+
+ALTER TABLE `staff` CHANGE `rank` `rank` INT(1) NOT NULL DEFAULT '4';
+
+ALTER TABLE `sessions` CHANGE `type` `archival` BOOLEAN NOT NULL DEFAULT FALSE;
+
 TODO list:
 
 1. Archived sessions
 2. Add custom dices, separate the tables
 3. Session visitation
 4. Remember password
-5. In Session - bootstrap buttons
+5. Change styles to grid
+6. User Tags
+7. Invite by user tags and not emails
+8. Move rolls below rolling
+9. Show a vanishing popup presenting roll result
+10. force refresh on roll instead of an iframe?

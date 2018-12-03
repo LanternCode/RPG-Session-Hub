@@ -23,15 +23,14 @@ class Creator extends CI_Controller {
 		}
 		else
 		{
-
 			  $data = [];
 	          $data['session_name'] = (isset($_POST['session_name'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['session_name'])) : 0;
-	          $data['participants'] = (isset($_POST['participant_count'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['participant_count'])) : 0;
-	          $data['type'] = (isset($_POST['session_type'])) ? mysqli_real_escape_string($this->db->conn_id,$_POST['session_type']) : 1;
+	          $data['participants'] = (isset($_POST['participant_count'])) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['participant_count'])) : '';
 
-			  if( $data['session_name'] && strlen($data['session_name']) > 0 && $data['participants'] > 1 && $data['participants'] < 25)
+			  if( $data['session_name'] && strlen($data['session_name']) > 0 &&
+			      is_numeric( $data['participants'] ) && $data['participants'] > 1 && $data['participants'] < 25)
 			  {
-				  $this->Creator_model->Create_session( $data );
+				  $this->Creator_model->createSession( $data );
 
 				  $_SESSION['session_name'] = $data['session_name'];
 				  $_SESSION['participants'] = $data['participants'];
@@ -43,8 +42,9 @@ class Creator extends CI_Controller {
 			  {
 				  $data['error_name'] = ($data['session_name'] == -1) ? 1 : 0;
 				  $data['error_name'] = (strlen($data['session_name']) <= 0) ? 1 : 0;
-				  $data['error_participant_count_too_small'] = ($data['participants'] < 2) ? 1 : 0;
-				  $data['error_participant_count_too_high'] = ($data['participants'] > 24) ? 1 : 0;
+				  $data['error_participant_count_invalid'] = is_numeric( $data['participants'] ) ? 0 : 1;
+				  $data['error_participant_count_too_small'] = ( !$data['error_participant_count_invalid'] && $data['participants'] < 2) ? 1 : 0;
+				  $data['error_participant_count_too_high'] = ( !$data['error_participant_count_invalid'] && $data['participants'] > 24) ? 1 : 0;
 
 				 $data['body'] = 'createSession/CreatePage1';
 				 $this->load->view('templates/main',$data);

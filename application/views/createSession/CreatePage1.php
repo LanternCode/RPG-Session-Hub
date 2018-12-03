@@ -27,6 +27,11 @@
             {
                 echo "<h4 class='create--error'>The highest participant count is 24.</h4>";
             }
+
+            if( isset( $error_participant_count_invalid ) && $error_participant_count_invalid )
+            {
+                echo "<h4 class='create--error'>Enter valid participant count.</h4>";
+            }
         ?>
         <br />
 

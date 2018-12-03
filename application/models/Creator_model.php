@@ -6,14 +6,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	     parent::__construct();
 	    }
 
-        function Create_session($data = [])
+        function createSession( $data = [] )
 		{
             $data = (object) $data;
 
-            $sql = "INSERT INTO sessions (name,participants,type)VALUES('$data->session_name',$data->participants,$data->type)";
-            $query = $this->db->query($sql);
-
-            return 1;
+            $sql = "INSERT INTO sessions (name,participants)VALUES('$data->session_name', $data->participants)";
+            $this->db->simple_query( $sql );
         }
 
 		function GetSessionIdBySessionName($name)
