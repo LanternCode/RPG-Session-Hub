@@ -3,9 +3,11 @@
 if( !isset( $_SESSION ) )
 	session_start();
 
-class Session extends CI_Controller {
+class Session extends CI_Controller
+{
 
-	public function __construct(){
+	public function __construct()
+	{
         parent::__construct();
         $this->load->model( 'Roll_model' );
 		$this->load->model( 'Assignment_model' );

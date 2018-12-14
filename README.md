@@ -55,6 +55,8 @@ ALTER TABLE `staff` CHANGE `rank` `rank` INT(1) NOT NULL DEFAULT '4';
 
 ALTER TABLE `sessions` CHANGE `type` `archival` BOOLEAN NOT NULL DEFAULT FALSE;
 
+ALTER TABLE `rolls` ADD `dice` VARCHAR(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL AFTER `session_id`;
+
 TODO list:
 
 1. Archived sessions

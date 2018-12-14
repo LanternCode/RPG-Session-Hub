@@ -118,7 +118,7 @@ $this->load->helper( 'quote_helper' ); ?>
 
             <?php for($i = 0; $i < $session->participants; ++$i){ ?>
                 <form method="POST" action="<?=base_url( 'userSpace/session/edit/name' )?>">
-                    <h2><?=isset($participants[$i]->name) ? $participants[$i]->name : 0?></h2><br /><br />
+                    <h2><?=isset($participants[$i]->name) ? htmlspecialchars($participants[$i]->name) : 0?></h2><br /><br />
 
                     <label>New name:</label><br />
                     <input type="text" name="new_name" /><br /><br />
@@ -145,7 +145,7 @@ $this->load->helper( 'quote_helper' ); ?>
                 $message = $gm ? 'GM' : 'Remove';
             ?>
                 <div class="session--admin__remove">
-                    <?=isset($participants[$i]->name) ? $participants[$i]->name : ''?>
+                    <?=isset($participants[$i]->name) ? htmlspecialchars($participants[$i]->name) : ''?>
                     <a href="<?=$href?>" role="button" class="btn <?=$button_color?>"><?=$message?></a>
                 </div>
             <?php
@@ -158,9 +158,16 @@ $this->load->helper( 'quote_helper' ); ?>
 
     if(isset($session->quotes) && $session->quotes)
     { ?>
-        <br /><br /><p>Random quote: <?=Get_daily_quote()?></p>
+        <br /><br /><p>Random quote: <?=htmlspecialchars( Get_daily_quote() )?></p>
     <?php
     } ?>
+
+    <br /><br />
+    <h3>Recent rolls: </h3>
+
+    <div class="lastrolls">
+        <iframe src="<?=base_url( 'userSpace/session/listrolls' )?>"></iframe>
+    </div>
 
     <br /><br />
     <form class="roll--form padded" method="POST" action="<?=base_url( 'userSpace/session/roll' )?>">
@@ -206,25 +213,19 @@ $this->load->helper( 'quote_helper' ); ?>
                 <?php if(isset($participants[$i]->avatar) && $participants[$i]->avatar != "0") { ?>
                     <img class="hub--avatar" src="<?=$participants[$i]->avatar?>"/><br />
                 <?php } ?>
-                <?=isset($participants[$i]->name) ? $participants[$i]->name : ''?>
+                <?=isset($participants[$i]->name) ? htmlspecialchars($participants[$i]->name) : ''?>
             </div>
         <?php } ?>
     </div>
 
-    <h3>Recent rolls: </h3>
+    <?php if($quote_checked && ($quote_checked_all || ( isset($GM) && $GM ) ) ){ ?>
 
-    <div class="lastrolls">
-        <iframe src="<?=base_url( 'userSpace/session/listrolls' )?>"></iframe>
-    </div><br />
-
-    <?php if($quote_checked && ($quote_checked_all || (isset( $GM ) && $GM))){ ?>
-
-        <h2>Insert quote:</h2><br />
-        <form method="POST" action="<?=base_url( 'userSpace/session/edit/addquote' )?>">
-            <label>Quote to add:</label>
-            <input type="text" name="add_quote" required /><br />
-            <input type="submit" class="btn btn-info" value="Add quote!" />
-        </form><br /><br />
+            <h2>Insert quote:</h2><br />
+            <form method="POST" action="<?=base_url( 'userSpace/session/edit/addquote' )?>">
+                <label>Quote to add:</label>
+                <input type="text" name="add_quote" required /><br />
+                <input type="submit" class="btn btn-info" value="Add quote!" />
+            </form><br /><br />
 
     <?php } ?>
 

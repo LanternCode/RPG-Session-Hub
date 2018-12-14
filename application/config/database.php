@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-$debugging = 1;
+$debugging = 0;
 $hostname = $debugging ? 'localhost' : 'sql.leanboxptr.nazwa.pl';
 $username = $debugging ? 'root' : 'leanboxptr_rpgsessionhubdb';
 $password = $debugging ? '' : 'Rq9:gM3nABJE_%C)iz*y4fpD';

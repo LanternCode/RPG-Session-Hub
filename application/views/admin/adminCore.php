@@ -8,8 +8,8 @@
 
 <div id="browsetickets" style="display: none;">
     <?php foreach($tickets as $ticket){
-        echo('Topic: '.$ticket->title.'<br /><br />');
-        echo('Message: '.$ticket->message.'<br /><br /><hr><br /><br />');
+        echo('Topic: ' . htmlspecialchars($ticket->title) . '<br /><br />');
+        echo('Message: ' . htmlspecialchars($ticket->message) . '<br /><br /><hr /><br /><br />');
     } ?>
 </div>
 

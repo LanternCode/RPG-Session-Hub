@@ -6,15 +6,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	     parent::__construct();
 	    }
 
-      function Update_Roll_History($data=[])
+      function Update_Roll_History( $data = [] )
 	  {
           $data = (object) $data;
-          $who = $_SESSION['who'];
 		  $sessionId = $_SESSION['connectedSessionId'];
           date_default_timezone_set('Poland');
 			$time = date('Y/m/d H:i:s');
 
-          $sql = "INSERT INTO rolls(session_id, value, who, what, rolldate, doubleroll)VALUES($sessionId,'$data->roll','$who','$data->comment','$time',$data->double)";
+          $sql = "INSERT INTO rolls(session_id, dice, value, who, what, rolldate, doubleroll)VALUES($sessionId, '$data->dice' ,'$data->roll','$data->who','$data->comment','$time',$data->double)";
           $query = $this->db->query($sql);
 
           return 1;
@@ -23,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		function getRollHistory( $sessionId )
 		{
 
-			$sql = "SELECT value, who, what, doubleroll
+			$sql = "SELECT dice, value, who, what, doubleroll
 			FROM rolls
 			WHERE session_id = $sessionId
 			ORDER BY rollid DESC
@@ -40,7 +39,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$sql = "UPDATE misc SET rollcount = rollcount + $increment_by";
 		}
 
-		function Roll_the_dice($dice){
+		function Roll_the_dice( $dice )
+		{
 
 			if($dice == 'K4') return rand(1, 4);
 			else if($dice == 'K6') return rand(1, 6);
@@ -53,7 +53,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				if($case == 1) return 1;
 				else return 20;
 			}
-			else return rand(1, 100);
+			else if($dice == 'K100') return rand(1, 100);
+			else return 0;
 
 
 		}

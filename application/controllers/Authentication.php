@@ -3,9 +3,11 @@
 if( !isset( $_SESSION ) )
 	session_start();
 
-class Authentication extends CI_Controller {
+class Authentication extends CI_Controller
+{
 
-	public function __construct(){
+	public function __construct()
+	{
     	parent::__construct();
 		$this->load->model( 'userModel' );
 		$this->load->model( 'securityModel' );

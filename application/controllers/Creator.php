@@ -3,7 +3,8 @@
 if( !isset( $_SESSION ) )
 	session_start();
 
-class Creator extends CI_Controller {
+class Creator extends CI_Controller
+{
 
 	public function __construct()
 	{
