@@ -15,14 +15,15 @@ class Creator_model extends CI_Model
         $this->db->simple_query( $sql );
     }
 
-	function GetSessionIdBySessionName($name)
+	function GetSessionIdBySessionName( $sessionName )
 	{
-		$sql = "SELECT id FROM sessions WHERE name = '$name'";
+		$sql = "SELECT id FROM sessions WHERE name = '$sessionName'";
 		$query = $this->db->query($sql);
-		return $query->row()->id;
+
+		return isset($query->row()->id) ? $query->row()->id : 0;
 	}
 
-	function Assign_dices($sessionId,$dices)
+	function Assign_dices( $sessionId, $dices )
 	{
 
 		$sql = "UPDATE sessions SET dices = '$dices' WHERE id = $sessionId";

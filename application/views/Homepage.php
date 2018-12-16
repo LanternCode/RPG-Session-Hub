@@ -31,6 +31,7 @@
             <input type="submit" class="btn btn-primary" value="Log in"><br />
         </form>
         or
-        <br><a href="<?=base_url( 'newAccount' )?>" role="button" class="btn btn-primary">Create your account!</a>
+        <br /><a href="<?=base_url( 'newAccount' )?>" role="button" class="btn btn-primary">Create your account!</a>
+        <br /><a href="<?=base_url( 'user/forgottenPassword' )?>">Password forgotten?</a>
     </div>
 </div>

@@ -220,12 +220,12 @@ $this->load->helper( 'quote_helper' ); ?>
 
     <?php if($quote_checked && ($quote_checked_all || ( isset($GM) && $GM ) ) ){ ?>
 
-            <h2>Insert quote:</h2><br />
-            <form method="POST" action="<?=base_url( 'userSpace/session/edit/addquote' )?>">
-                <label>Quote to add:</label>
-                <input type="text" name="add_quote" required /><br />
-                <input type="submit" class="btn btn-info" value="Add quote!" />
-            </form><br /><br />
+        <h2>Insert quote:</h2><br />
+        <form method="POST" action="<?=base_url( 'userSpace/session/edit/addquote' )?>">
+            <label>Quote to add:</label>
+            <input type="text" name="add_quote" required /><br />
+            <input type="submit" class="btn btn-info" value="Add quote!" />
+        </form><br /><br />
 
     <?php } ?>
 

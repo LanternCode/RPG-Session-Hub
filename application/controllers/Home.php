@@ -131,4 +131,34 @@ class Home extends CI_Controller
 
 	}
 
+	public function rememberPassword()
+	{
+		$data = array(
+			'title' => 'RPG Session-Hub',
+			'body' => 'user/passwordForgotten',
+			'emailEntered' =>  isset( trim( $_POST['email'] ) ) ? 1 : 0,
+			'email' => isset( $_POST['email'] ) && filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) ?  trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['email'] ) ) : 0
+		);
+
+		if( $data['emailEntered'] )
+		{
+			if( $data['email'] )
+			{
+				$data['actionNotification'] = 1;
+
+				if( $this->UserModel->emailExists( $data['email'] ) )
+				{
+					$this->UserModel->sendPasswordChangeEmail( $data['email'] );
+					$this->UserModel->insertPasswordUpdateLink( $data['email'] );
+				}
+			}
+			else
+			{
+				$data['emailFormatInvalid'] = 1;
+			}
+		}
+
+		$this->load->view( 'templates/main', $data );
+	}
+
 }

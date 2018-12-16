@@ -66,6 +66,5 @@ TODO list:
 5. Change styles to grid
 6. User Tags
 7. Invite by user tags and not emails
-8. Move rolls below rolling
 9. Show a vanishing popup presenting roll result
 10. force refresh on roll instead of an iframe?

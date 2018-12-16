@@ -6,6 +6,7 @@ $route['validateRegistration']       = 'Authentication/register';
 $route['userSpace']                  = 'Authentication';
 $route['userSpace/acceptInvitation'] = 'Authentication/accept';
 $route['userSpace/rejectInvitation'] = 'Authentication/reject';
+$route['forgottenPassword']          = 'Home/rememberPassword';
 
 //Related to session-creation
 $route['createSession']           = 'Home/newsession';
@@ -37,6 +38,8 @@ $route['adminPanel']          = 'Admin/panel';
 $route['TOS']                    = 'Home/termsOfService';
 $route['sessionExpired']         = 'Home/sessionExpired';
 $route['logout']                 = 'Home/logout';
+
+//Contact-related routes
 $route['contact']                = 'Home/contact';
 $route['contact/sendTicket']     = 'Home/submitTicket';
 

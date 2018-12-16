@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class userModel extends CI_Model{
+class userModel extends CI_Model
+{
 
 	function __construct()
     {
@@ -19,13 +20,16 @@ class userModel extends CI_Model{
 
 	function getUserSessions( $userId )
 	{
-		$sql = "SELECT DISTINCT
+		$sql = "SELECT
 		s.id, s.name, s.participants,
 		p.session_id
 		FROM participants AS p
 		JOIN sessions AS s
 		ON p.session_id = s.id
 		WHERE p.userId = $userId";
+
+		//echo($sql);
+		//die();
 
 		$query = $this->db->query( $sql );
 
