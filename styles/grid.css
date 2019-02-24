@@ -1,0 +1,351 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    background-color: #ededed;
+}
+
+body{
+    background-color: #ededed;
+}
+
+footer{
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.homepage--logo__brand{
+    font-family: 'Dancing Script', cursive;
+    font-size: 50px;
+}
+
+.homepage--logo__session{
+    color: #FF0000;
+}
+
+.homepage--admin-link,
+.homepage--admin-link:hover{
+    text-decoration: none;
+    color: black;
+    cursor: default;
+}
+
+.link--upgrade{
+    color: white;
+}
+
+.homepage--login__form{
+    max-width: 250px;
+    border: 1px solid black;
+    padding: 15px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.session--hub{
+    text-align: center;
+}
+
+.session--roll--radioButton{
+    margin-right: 10px;
+}
+
+.roll__bold{
+    font-weight:bold;
+}
+
+.hub--avatar{
+    height: 70%;
+    width: 70%;
+}
+
+.shortened{
+    height: 1000%;
+}
+
+.roll--form{
+    border: 1px solid black;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.padded{
+    padding: 25px;
+}
+
+.homepage--logo{
+    text-align: center;
+    margin: 50px;
+}
+
+.create--error{
+    color: red;
+    text-align: center;
+}
+
+.homepage--error{
+    color: red;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+.registration--error{
+    color: red;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.homepage--registered{
+    color: green;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+#addplayersform, #editmodulesform, #removeplayers, #editdices, #changenames{
+    display: none;
+    border: 1px solid black;
+    margin-top: 20px;
+    width: 99%;
+    margin-bottom: -20px;
+}
+
+#browsetickets{
+    display: none;
+    border: 1px solid black;
+}
+
+.create--tooltip{
+    display: inline;
+}
+
+.create--finished--div {
+    text-align: center;
+}
+
+.session--admin__remove{
+    padding: 15px;
+}
+
+.session--admin__editname{
+    border-bottom: 1px solid black;
+    padding: 5px;
+}
+
+.session--hub p{
+    display: inline;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.register--form {
+    text-align: center;
+    margin: 15px;
+}
+
+.register--input {
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.register--grayed {
+    color: gray;
+}
+
+.register--section {
+    margin: 20px;
+}
+
+.userspace--welcome, .userspace--navigation, td {
+    text-align: center;
+}
+
+.userspace--welcome {
+    margin: 20px;
+}
+
+.userspace--navigation--item {
+    display: inline;
+    margin: 1px;
+    padding-right: 5px;
+    border-right: 1px solid black;
+}
+
+.userspace--navigation--item__last {
+    display: inline;
+    margin: 1px;
+}
+
+.userspace--createPrompt {
+    font-weight: bold;
+    text-align: center;
+}
+
+.userspace--sessions {
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.userspace--sessions--header__item, td {
+    padding: 5px;
+}
+
+td, th {
+    border-bottom: 1px solid gray;
+}
+
+.userspace--mysessions {
+    text-align: center;
+    margin: 20px;
+    color: gray;
+}
+
+.userspace--sessions--msg__nosessions {
+    text-align: center;
+    border: 2px solid black;
+    width: 370px;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tos--paragraph {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tos--button {
+    text-align: center;
+}
+
+.contact--form {
+    text-align: center;
+}
+
+.contact--form--header {
+    display: block;
+}
+
+.contact--form--item {
+    display: block;
+}
+
+
+.universal--errorMessage {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+.universal--successMessage {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+}
+
+.forgottenPassword--grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 3fr 2fr 3fr;
+    grid-gap: 10px;
+    text-align: center;
+}
+
+.forgottenPassword--grid--form {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.forgottenPassword--grid--return {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.forgottenPassword--grid--errorSpan {
+     white-space: nowrap;
+}
+
+.forgottenPassword--grid--h2 {
+    grid-row: 1;
+    grid-column: 2;
+    margin-top: 50px;
+}
+
+.resetPassword--grid {
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+    grid-template-columns: 3fr 2fr 3fr;
+    grid-gap: 10px;
+    text-align: center;
+}
+
+.resetPassword--grid--form {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.resetPassword--grid--return {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.resetPassword--grid--errorSpan {
+     white-space: nowrap;
+}
+
+.resetPassword--grid--h2 {
+    grid-row: 1;
+    grid-column: 2;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+.resetPasswordSuccess--grid {
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+    grid-template-columns: 3fr 2fr 3fr;
+    grid-gap: 10px;
+    text-align: center;
+}
+
+.resetPasswordSuccess--grid--contentBox {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.resetPassword--grid--contentMessages {
+    white-space: nowrap;
+}

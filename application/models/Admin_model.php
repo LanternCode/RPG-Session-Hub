@@ -22,21 +22,18 @@ class Admin_model extends CI_Model
 
     }
 
-	function Get_admin_data($adminName){
-
+	function Get_admin_data($adminName)
+	{
 		$sql = "SELECT * FROM staff WHERE name = '$adminName'";
 		$query = $this->db->query($sql);
 		return ((object) $query->row());
-
 	}
 
-	function Load_tickets(){
-
+	function Load_tickets()
+	{
 		$sql = "SELECT * FROM tickets WHERE status = 0";
 		$query = $this->db->query($sql);
-		$result = $query->result();
-		return $result;
-
+		return $query->result();
 	}
 
 }

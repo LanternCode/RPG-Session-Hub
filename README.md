@@ -57,14 +57,21 @@ ALTER TABLE `sessions` CHANGE `type` `archival` BOOLEAN NOT NULL DEFAULT FALSE;
 
 ALTER TABLE `rolls` ADD `dice` VARCHAR(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL AFTER `session_id`;
 
+ALTER TABLE `users` ADD `passwordResetKey` INT(255) NULL DEFAULT NULL AFTER `registeredDate`;
+
+ALTER TABLE `users` CHANGE `passwordResetKey` `passwordResetKey` VARCHAR(255) NULL DEFAULT NULL;
+
 TODO list:
 
 1. Archived sessions
 2. Add custom dices, separate the tables
 3. Session visitation
-4. Remember password
 5. Change styles to grid
 6. User Tags
 7. Invite by user tags and not emails
 9. Show a vanishing popup presenting roll result
 10. force refresh on roll instead of an iframe?
+
+Completed Tasks list:
+
+4. Remember password

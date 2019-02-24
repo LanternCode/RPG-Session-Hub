@@ -6,7 +6,8 @@ $route['validateRegistration']       = 'Authentication/register';
 $route['userSpace']                  = 'Authentication';
 $route['userSpace/acceptInvitation'] = 'Authentication/accept';
 $route['userSpace/rejectInvitation'] = 'Authentication/reject';
-$route['forgottenPassword']          = 'Home/rememberPassword';
+$route['forgottenPassword']          = 'Home/forgottenPassword';
+$route['forgottenPassword/reset']    = 'Home/resetPassword';
 
 //Related to session-creation
 $route['createSession']           = 'Home/newsession';

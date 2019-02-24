@@ -5,11 +5,11 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title><?= isset( $title ) ? $title : 'RPG Session-Hub'; ?></title>
+		<title><?= isset( $title ) ? $title : 'Manage and virtualize your RPG campaigns with our hub!'; ?></title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link href="https://fonts.googleapis.com/css?family=Dancing+Script:700" rel="stylesheet">
-		<link rel="stylesheet" href="<?=base_url( 'styles/main.css' )?>">
+		<link rel="stylesheet" href="<?=base_url( 'styles/grid.css' )?>">
 		<link rel="shortcut icon" href="<?=base_url( 'favicon.ico' )?>" type="image/x-icon">
 		<link rel="icon" href="<?=base_url( 'favicon.ico' )?>" type="image/x-icon">
 	</head>

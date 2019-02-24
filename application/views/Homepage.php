@@ -32,6 +32,6 @@
         </form>
         or
         <br /><a href="<?=base_url( 'newAccount' )?>" role="button" class="btn btn-primary">Create your account!</a>
-        <br /><a href="<?=base_url( 'user/forgottenPassword' )?>">Password forgotten?</a>
+        <br /><a href="<?=base_url( 'forgottenPassword' )?>">Password forgotten?</a>
     </div>
 </div>
