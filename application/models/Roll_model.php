@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           return 1;
       }
 
-		function getRollHistory( $sessionId )
+		function getRollHistory( $sessionId = 0 )
 		{
 
 			$sql = "SELECT dice, value, who, what, doubleroll

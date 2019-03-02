@@ -10,7 +10,7 @@ class userModel extends CI_Model
 
     function getUserData( $email )
 	{
-		$sql = "SELECT id, username, password FROM users WHERE email = '$email'";
+		$sql = "SELECT id, tag, username, password FROM users WHERE email = '$email'";
 		$query = $this->db->query( $sql );
 
 		if( isset( $query->row()->password ) && $query->row()->password )
@@ -36,12 +36,12 @@ class userModel extends CI_Model
 
 	}
 
-	function registerNewUser( $username, $email, $password )
+	function registerNewUser( $username, $userTag, $email, $password )
 	{
 		$sql = "INSERT INTO users
-		( username, email, password )
+		( username, tag, email, password )
 		VALUES
-		( '$username', '$email', '$password')";
+		( '$username', '$userTag', '$email', '$password')";
 
 		$this->db->simple_query( $sql );
 	}
@@ -204,6 +204,54 @@ class userModel extends CI_Model
 		$newPass = password_hash( $password, PASSWORD_BCRYPT );
 		$sql = "UPDATE users SET passwordResetKey = NULL, password = '$newPass' WHERE id = $userId";
 		$this->db->simple_query($sql);
+	}
+
+	function generateUserTag( $username )
+	{
+		$userTagNo = 1;
+
+		$sql = "SELECT tag FROM users WHERE username = '$username' ORDER BY tag DESC LIMIT 1";
+		$query = $this->db->query( $sql );
+		if( isset( $query->row()->tag ) )
+		{
+			$userTagNo = $query->row()->tag + 1;
+		}
+
+		$userTag = $this->fillUserTag( $userTagNo );
+
+		return $userTag;
+	}
+
+	function fillUserTag( $userTagNo )
+	{
+		$filledUserTag = "";
+		switch( strlen( $userTagNo ) )
+		{
+			case 1:
+			{
+				$filledUserTag .= "000";
+				$filledUserTag .= $userTagNo;
+				break;
+			}
+			case 2:
+			{
+				$filledUserTag .= "00";
+				$filledUserTag .= $userTagNo;
+				break;
+			}
+			case 3:
+			{
+				$filledUserTag .= "0";
+				$filledUserTag .= $userTagNo;
+				break;
+			}
+			case 4:
+			{
+				$filledUserTag .= $userTagNo;
+				break;
+			}
+		}
+		return $filledUserTag;
 	}
 
 }

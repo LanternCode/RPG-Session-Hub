@@ -187,12 +187,22 @@ footer{
     margin: 20px;
 }
 
-.userspace--welcome, .userspace--navigation, td {
+.userspace--navigation, td {
     text-align: center;
 }
 
-.userspace--welcome {
+.userspace--header {
+    text-align: center;
     margin: 20px;
+}
+
+.userspace--header__h1 {
+    display: inline;
+}
+
+.userspace--header__h2 {
+    display: inline;
+    color: gray;
 }
 
 .userspace--navigation--item {

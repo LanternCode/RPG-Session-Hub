@@ -61,13 +61,17 @@ ALTER TABLE `users` ADD `passwordResetKey` INT(255) NULL DEFAULT NULL AFTER `reg
 
 ALTER TABLE `users` CHANGE `passwordResetKey` `passwordResetKey` VARCHAR(255) NULL DEFAULT NULL;
 
+---
+
+ALTER TABLE `users` ADD `tag` INT(4) NOT NULL AFTER `username`;
+ALTER TABLE `users` CHANGE `tag` `tag` VARCHAR(4) NOT NULL;
+
 TODO list:
 
 1. Archived sessions
 2. Add custom dices, separate the tables
 3. Session visitation
 5. Change styles to grid
-6. User Tags
 7. Invite by user tags and not emails
 9. Show a vanishing popup presenting roll result
 10. force refresh on roll instead of an iframe?
@@ -75,3 +79,4 @@ TODO list:
 Completed Tasks list:
 
 4. Remember password
+6. User Tags

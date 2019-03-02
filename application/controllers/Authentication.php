@@ -12,14 +12,12 @@ class Authentication extends CI_Controller
 		$this->load->model( 'userModel' );
 		$this->load->model( 'securityModel' );
 		$this->load->model( 'sessionModel' );
-    }
+  	}
 
     public function index()
     {
-
 		if( isset( $_SESSION['userLoggedIn'] ) && $_SESSION['userLoggedIn'] && isset( $_SESSION['userId'] ) && $_SESSION['userId'] )
 		{
-
 			if( isset( $_SESSION['connectedSessionId'] ) )
 			{
 				redirect( base_url( 'userSpace/session?s=' . $_SESSION['connectedSessionId'] ) );
@@ -33,11 +31,9 @@ class Authentication extends CI_Controller
 				$data['body'] = 'user/userspace';
 				$this->load->view( 'templates/main', $data );
 			}
-
 		}
 		else
 		{
-
 	        $data = array(
 			    'body' => 'Homepage',
 				'invalidCredentials' => 0
@@ -58,6 +54,7 @@ class Authentication extends CI_Controller
 				{
 					$_SESSION['userLoggedIn'] = 1;
 					$_SESSION['userId'] = $userData->id;
+					$_SESSION['userTag'] = $userData->tag;
 					$_SESSION['username'] = $userData->username;
 
 					$data['userSessions'] = $this->userModel->getUserSessions( $userData->id );
@@ -82,13 +79,13 @@ class Authentication extends CI_Controller
 			'body' => 'Homepage'
 		);
 
-		$username		= isset( $_POST['register--username'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['register--username'] ) ) : 0;
+		$username		= isset( $_POST['register--username'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['register--username'] ) ) : "";
 		$email			= isset( $_POST['register--email'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['register--email'] ) ) : 0;
 		$password		= isset( $_POST['register--password'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['register--password'] ) ) : 0;
 		$passwordRep 	= isset( $_POST['register--password__repetition'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['register--password__repetition'] ) ) : 0;
 		$termsOfService	= isset( $_POST['register--TOS'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['register--TOS'] ) ) : 0;
 
-		$data['usernameTooShort'] = $username ? 0 : "Enter an username!";
+		$data['usernameTooShort'] = strlen( $username ) > 0  ? 0 : "Enter an username!";
 		$data['usernameTooLong']  = strlen( $username ) > 20 ? "Username can't be longer than 20 characters." : 0;
 
 		$data['emailFormatInvalid'] = filter_var( $email, FILTER_VALIDATE_EMAIL ) ? 0 : "Enter your email!";
@@ -102,7 +99,6 @@ class Authentication extends CI_Controller
 		$data['passwordRepetitionNotMatching'] = $password == $passwordRep ? 0 : "Entered passwords aren't the same!";
 
 		$data['termsOfServiceDenied'] = !$termsOfService ? "In order to continue you have to agree with our TOS." : 0;
-
 
 		if( $data['usernameTooShort'] || $data['usernameTooLong'] ||
 			$data['emailFormatInvalid'] || $data['emailTooLong'] || $data['emailRepeated'] ||
@@ -136,7 +132,8 @@ class Authentication extends CI_Controller
 		{
 			$password = password_hash( $password, PASSWORD_BCRYPT );
 			$data['userHasRegistered'] = 1;
-			$this->userModel->registerNewUser( $username, $email, $password );
+			$userTag = $this->userModel->generateUserTag( $username );
+			$this->userModel->registerNewUser( $username, $userTag, $email, $password );
 		}
 
 		$this->load->view( 'templates/main', $data );

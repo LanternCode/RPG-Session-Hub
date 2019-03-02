@@ -1,4 +1,7 @@
-<h1 class="userspace--welcome">Welcome, <?=$_SESSION['username']?>!</h1>
+<div class="userspace--header">
+    <h1 class="userspace--header__h1">Welcome, <?=$_SESSION['username']?></h1>
+    <h2 class="userspace--header__h2">#<?=$_SESSION['userTag']?></h2>
+</div>
 
 <nav class="userspace--navigation">
     <ol>
