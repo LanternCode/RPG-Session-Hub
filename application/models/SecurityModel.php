@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     class securityModel extends CI_Model{
 
-        function __construct(){
+        function __construct()
+        {
             parent::__construct();
         }
 
@@ -19,11 +20,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         }
 
-        function userWasInvitedToSession( $userEmail, $sessionId )
+        function userWasInvitedToSession( $userTagName, $sessionId )
         {
             $sql = "SELECT id
             FROM invites
-            WHERE email = '$userEmail'
+            WHERE userTagName = '$userTagName'
             AND sessionId = $sessionId
             AND status = 0";
 
@@ -33,18 +34,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             else return 0;
         }
 
-        function userNotInvitedNorParticipates( $email, $sessionId )
+        function userNotInvitedNorParticipates( $userTagName, $sessionId )
         {
-            $sql = "SELECT email FROM invites WHERE sessionId = $sessionId AND status = 0 AND email = '$email'";
+            $sql = "SELECT userTagName FROM invites WHERE sessionId = $sessionId AND status = 0 AND userTagName = '$userTagName'";
             $query = $this->db->query( $sql );
 
-            if( isset( $query->row()->email ) && $query->row()->email ) return 0;
+            if( isset( $query->row()->userTagName ) && $query->row()->userTagName ) return 0;
             else
             {
-                $sql = "SELECT u.email FROM users AS u JOIN participants AS p ON u.id = p.userId WHERE p.session_id = $sessionId AND u.email = '$email'";
+                $sql = "SELECT u.userTagName FROM users AS u JOIN participants AS p ON u.id = p.userId WHERE p.session_id = $sessionId AND u.userTagName = '$userTagName'";
                 $query = $this->db->query( $sql );
 
-                if( isset( $query->row()->email ) && $query->row()->email ) return 0;
+                if( isset( $query->row()->userTagName ) && $query->row()->userTagName ) return 0;
                 else return 1;
             }
         }

@@ -88,37 +88,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			return $query->row()->URL;
 		}
 
-		function addParticipant( $email, $sessionId, $name, $avatar, $rank )
+		function addParticipant( $userTagName, $sessionId, $name, $avatar, $rank )
 		{
-			if( $email && $sessionId && $name )
+			if( $userTagName && $sessionId && $name )
 			{
 				$avatar = filter_var( $avatar, FILTER_SANITIZE_URL );
 
 				if( !filter_var( $avatar, FILTER_VALIDATE_URL ) )
 					$avatar = $this->randomizeDefaultAvatar();
 
-				$sql = "INSERT INTO participants (userId, session_id, name, avatar, rank)VALUES( '$email' , $sessionId, '$name', '$avatar', $rank )";
+				$sql = "INSERT INTO participants (userId, session_id, name, avatar, rank)VALUES( '$userTagName' , $sessionId, '$name', '$avatar', $rank )";
 				$this->db->simple_query($sql);
 			}
 		}
 
-		function acceptParticipant( $email, $sessionId, $userId )
+		function acceptParticipant( $userTagName, $sessionId, $userId )
 		{
 			$sql = "UPDATE participants
 			SET userId = $userId,
 			name = SUBSTR(name, 11)
 			WHERE session_id = $sessionId
-			AND userId = '$email'";
+			AND userId = '$userTagName'";
 
 			$this->db->simple_query( $sql );
 		}
 
-		function removeParticipant( $email, $sessionId )
+		function removeParticipant( $userTagName, $sessionId )
 		{
 			$sql = "DELETE
 			FROM participants
 			WHERE session_id = $sessionId
-			AND userId = '$email'";
+			AND userId = '$userTagName'";
 
 			$this->db->simple_query( $sql );
 		}

@@ -21,22 +21,22 @@ class Editor extends CI_Controller
 		if( isset( $_SESSION['connectedSessionId'] ) && $_SESSION['connectedSessionId'] )
 		{
 
-            $userEmail       = isset( $_POST['addUserEmail'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['addUserEmail'] ) ) : 0;
+            $userTagName     = isset( $_POST['addUserTagName'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['addUserTagName'] ) ) : 0;
 			$userDisplayName = isset( $_POST['addUserDisplayName'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['addUserDisplayName'] ) ) : 0;
             $userAvatar      = isset( $_POST['addUserAvatarLink'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['addUserAvatarLink'] ) ) : 0;
 			$sessionName     = isset( $_POST['addUserSessionName'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['addUserSessionName'] ) ) : 0;
 			$gmName          = isset( $_POST['addUserGamemasterName'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['addUserGamemasterName'] ) ) : 0;
 			$sessionId       = $_SESSION['connectedSessionId'];
 
-			if( $sessionName && $gmName && $userDisplayName && filter_var( $userEmail, FILTER_VALIDATE_EMAIL ) )
+			if( $sessionName && $gmName && $userDisplayName && $this->userModel->userTagNameExists( $userTagName ) )
 			{
-				if( $this->securityModel->userNotInvitedNorParticipates( $userEmail, $sessionId ) )
+				if( $this->securityModel->userNotInvitedNorParticipates( $userTagName, $sessionId ) )
 				{
-					$this->userModel->addInvite( $userEmail, $sessionId );
-					$this->userModel->sendEmailInvitation( $userEmail, $sessionName, $gmName );
+					$this->userModel->addInvite( $userTagName, $sessionId );
+					//TODO: $this->userModel->sendEmailInvitation( $userTagName, $sessionName, $gmName );
 
 					$this->sessionModel->updateParticipantCount( $sessionId, 1 );
-					$this->sessionModel->addParticipant( $userEmail, $sessionId, "(INVITED) " . $userDisplayName, $userAvatar, 0);
+					$this->sessionModel->addParticipant( $userTagName, $sessionId, "(INVITED) " . $userDisplayName, $userAvatar, 0);
 				}
 			}
 

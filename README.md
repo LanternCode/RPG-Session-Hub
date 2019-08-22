@@ -66,6 +66,14 @@ ALTER TABLE `users` CHANGE `passwordResetKey` `passwordResetKey` VARCHAR(255) NU
 ALTER TABLE `users` ADD `tag` INT(4) NOT NULL AFTER `username`;
 ALTER TABLE `users` CHANGE `tag` `tag` VARCHAR(4) NOT NULL;
 
+----
+
+ALTER TABLE `invites` CHANGE `email` `userTagName` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL;
+ALTER TABLE `users` ADD `userTagName` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL AFTER `tag`;
+UPDATE users SET tag = '0001';
+UPDATE users SET userTagName = CONCAT(username,'#',tag);
+ALTER TABLE `participants` CHANGE `userId` `userId` VARCHAR(25) NOT NULL;
+
 TODO list:
 
 1. Archived sessions
@@ -75,6 +83,9 @@ TODO list:
 7. Invite by user tags and not emails
 9. Show a vanishing popup presenting roll result
 10. force refresh on roll instead of an iframe?
+11. Username already taken (no empty tag)
+12. BUG: First Load does not load invites
+13. Interrupted Session Creation
 
 Completed Tasks list:
 

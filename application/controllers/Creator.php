@@ -70,8 +70,12 @@ class Creator extends CI_Controller
 
 			//gamemaster
 			$gmName   = isset( $_POST['gamemasterName'] ) ? trim(mysqli_real_escape_string( $this->db->conn_id, $_POST['gamemasterName'] )) : 0;
-			$gmAvatar = (isset($_POST['gamemasterAvatarURL'])) ? mysqli_real_escape_string($this->db->conn_id,$_POST['gamemasterAvatarURL']) : 0;
+			$gmAvatar = isset( $_POST['gamemasterAvatarURL'] ) ? mysqli_real_escape_string( $this->db->conn_id,$_POST['gamemasterAvatarURL'] ) : 0;
 			$gmEmail  = $this->UserModel->getUserEmailById( $_SESSION['userId'] );
+
+			print_r($gmName);
+			echo("---");
+			print_r($gmEmail);
 
  			$data['playerCount'] = $_SESSION['participants'];
 			$data['realPlayerCount'] = 1;
@@ -79,19 +83,19 @@ class Creator extends CI_Controller
 			//players
 	  		for( $i = 0; $i < $data['playerCount']-1 ; ++$i )
 			{
-		  		$name   = isset( $_POST['participant_'.$i.'_ign'] ) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['participant_'.$i.'_ign'])) : NULL;
-		  		$avatar = isset($_POST['participant_'.$i.'_avatar']) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['participant_'.$i.'_avatar'])) : NULL;
-				$email  = isset($_POST['participant_'.$i.'_email']) ? trim(mysqli_real_escape_string($this->db->conn_id,$_POST['participant_'.$i.'_email'])) : NULL;
+		  		$name   = isset( $_POST['participant_'.$i.'_ign'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['participant_'.$i.'_ign'] ) ) : NULL;
+		  		$avatar = isset( $_POST['participant_'.$i.'_avatar'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['participant_'.$i.'_avatar'] ) ) : NULL;
+				$userTagName  = isset( $_POST['participant_'.$i.'_tag'] ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_POST['participant_'.$i.'_tag'] ) ) : NULL;
 
 		  		$name = ( strlen( $name ) < 1 ) ? NULL : $name;
 		  		$avatar = ( !$name || strlen( $avatar ) < 5 ) ? NULL : $avatar;
-				$email = filter_var( $email, FILTER_VALIDATE_EMAIL ) ? $email : NULL;
+				$userTagName = $this->UserModel->userTagNameExists( $userTagName ) ? $userTagName : NULL;
 
-				if( $name && $email ) $data['realPlayerCount']++;
+				if( $name && $userTagName ) $data['realPlayerCount']++;
 
 		  		$data['p_name' . $i] = $name;
 		  		$data['p_avatar' . $i] = $avatar;
-				$data['p_email' . $i] = $email;
+				$data['p_userTagName' . $i] = $userTagName;
 			}
 
 			//dices
@@ -124,20 +128,22 @@ class Creator extends CI_Controller
 				//adding users and gm
 	  			for( $i = 0; $i < $data['playerCount']; ++$i )
 				{
+					//gamemaster
 	  				if( $i == ( $data['playerCount'] - 1 ) )
 					{
 						$this->SessionModel->addParticipant( $_SESSION['userId'], $data['session_id'] , $gmName, $gmAvatar, 1 );
 					}
 					else
 					{
-						if( $data['p_name' . $i] && $data['p_email' . $i] &&
-							$this->SecurityModel->userNotInvitedNorParticipates( $data['p_email' . $i], $data['session_id'] )
-							&& $gmEmail != $data['p_email' . $i] )
+						//players
+						if( $data['p_name' . $i] && $data['p_userTagName' . $i] &&
+							$this->SecurityModel->userNotInvitedNorParticipates( $data['p_userTagName' . $i], $data['session_id'] )
+							&& $gmEmail != $data['p_userTagName' . $i] )
 						{
-							$this->UserModel->addInvite( $data['p_email' . $i], $data['session_id'] );
-							$this->UserModel->sendEmailInvitation( $data['p_email' . $i], $_SESSION['session_name'], $gmName );
+							$this->UserModel->addInvite( $data['p_userTagName' . $i], $data['session_id'] );
+							$this->UserModel->sendEmailInvitation( $data['p_userTagName' . $i], $_SESSION['session_name'], $gmName );
 
-							$this->SessionModel->addParticipant( $data['p_email' . $i], $data['session_id'],
+							$this->SessionModel->addParticipant( $data['p_userTagName' . $i], $data['session_id'],
 							 	"(INVITED) " . $data['p_name' . $i], $data['p_avatar' . $i], 0 );
 						}
 					}
@@ -153,7 +159,7 @@ class Creator extends CI_Controller
 	  	  	}
 			else
 			{
-	  			$data['error_mail'] = filter_var( $gmEmail, FILTER_VALIDATE_EMAIL ) ? 0 : 1;
+	  			//$data['error_mail'] = filter_var( $gmEmail, FILTER_VALIDATE_EMAIL ) ? 0 : 1;
 	  			$data['gamemaster_name_error'] = isset( $gmName ) ? ( strlen( $gmName ) > 0 ? 0 : 1) : 1;
 	  			$data['p_count_error'] = $data['realPlayerCount'] > 1 ? 0 : 1;
 
@@ -165,5 +171,3 @@ class Creator extends CI_Controller
 	}
 
 }
-
-?>

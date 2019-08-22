@@ -5,7 +5,7 @@
 
     <div class="register--section">
         <label>Username:<br />
-            <span class="register--grayed">Only you will see it<span />
+            <span class="register--grayed">Others will use it to invite you so choose carefully!<span />
         </label><br />
         <input type="text" name="register--username" class="register--input" value="<?=isset($setUsername) ? $setUsername : ''?>" required/><br />
         <?=isset($usernameTooShort) ? $usernameTooShort : ''?>

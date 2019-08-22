@@ -1,7 +1,7 @@
 <div class="session--hub">
     <h3>Great! Now add the users that will be taking part in the session.</h3><br />
 
-    <h4>Give each user a name, an avatar link (not necessary) and provide their Email address.</h4><br /><br />
+    <h4>Give each user a name, an avatar link (not necessary) and provide their RPG Session-Hub Username and Tag.</h4><br /><br />
 
     <form action="<?=base_url( 'createSession/stepThree' )?>" method="POST">
 
@@ -18,13 +18,10 @@
             }
         }
 
-        if( isset( $p_count_error ) && $p_count_error ) $iterate_once = 1; ?>
-
-        <?php
-            if( isset( $error_mail ) )
-            {
-                echo "<h4 class='create--error'>The gamemaster has to have a name!</h4>";
-            }
+        if( isset( $gamemaster_name_error ) && $gamemaster_name_error )
+        {
+            echo "<h4 class='create--error'>The gamemaster has to have a name!</h4>";
+        }
         ?>
 
         <label>Gamemaster:</label><br />
@@ -32,7 +29,7 @@
         <input type="text" name="gamemasterAvatarURL" placeholder="Avatar URL"/><br /><br />
 
         <?php
-            if( isset( $iterate_once ) && $iterate_once )
+            if( isset( $p_count_error ) && $p_count_error )
             {
                 $iterate_once = 0;
                 echo "<h4 class='create--error'>Enter at least one player!</h4>";
@@ -42,7 +39,7 @@
         <?php for( $i = 0; $i < $participants-1; ++$i ){ ?>
 
             <label>Participant <?=($i+1)?>:</label><br />
-            <input type="email" name="participant_<?=$i?>_email" placeholder="Email Address"/><br />
+            <input type="text" name="participant_<?=$i?>_tag" placeholder="Username and Tag"/><br />
             <input type="text" name="participant_<?=$i?>_ign" placeholder="In-Game Name"/><br />
             <input type="text" name="participant_<?=$i?>_avatar" placeholder="Avatar URL"/><br /><br />
 

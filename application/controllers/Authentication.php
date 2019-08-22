@@ -25,8 +25,8 @@ class Authentication extends CI_Controller
 			else
 			{
 				$data['userSessions'] = $this->userModel->getUserSessions( $_SESSION['userId'] );
-				$myEmail = $this->userModel->getUserEmailById( $_SESSION['userId'] );
-				$data['myInvitations'] = $this->userModel->getUserInvitations( $myEmail );
+				$userTagName = $this->userModel->getUserTagNameById( $_SESSION['userId'] );
+				$data['myInvitations'] = $this->userModel->getUserInvitations( $userTagName );
 				$data['gamemasters'] = $this->userModel->getUserSessionsGamemasters( $data['userSessions'] );
 				$data['body'] = 'user/userspace';
 				$this->load->view( 'templates/main', $data );
@@ -58,7 +58,7 @@ class Authentication extends CI_Controller
 					$_SESSION['username'] = $userData->username;
 
 					$data['userSessions'] = $this->userModel->getUserSessions( $userData->id );
-					$data['myInvitations'] = $this->userModel->getUserInvitations( $data['email'] );
+					$data['myInvitations'] = $this->userModel->getUserInvitations( $userData->tag );
 					$data['gamemasters'] = $this->userModel->getUserSessionsGamemasters( $data['userSessions'] );
 
 					$data['body'] = 'user/userspace';
@@ -133,7 +133,7 @@ class Authentication extends CI_Controller
 			$password = password_hash( $password, PASSWORD_BCRYPT );
 			$data['userHasRegistered'] = 1;
 			$userTag = $this->userModel->generateUserTag( $username );
-			$this->userModel->registerNewUser( $username, $userTag, $email, $password );
+			$this->userModel->registerNewUser( $username, $userTag, $username . '#' . $userTag,  $email, $password );
 		}
 
 		$this->load->view( 'templates/main', $data );
@@ -142,17 +142,15 @@ class Authentication extends CI_Controller
 
 	public function accept()
 	{
-
 		$sessionId = ( isset( $_GET['i'] ) ) ? trim( mysqli_real_escape_string( $this->db->conn_id, $_GET['i'] ) ) : 0;
 
 		if( isset( $_SESSION['userId'] ) && $_SESSION['userId'] )
 		{
-
-			$userEmail = $this->userModel->getUserEmailById( $_SESSION['userId'] );
-			if( $sessionId && $this->securityModel->userWasInvitedToSession( $userEmail, $sessionId ) )
+			$userTagName = $this->userModel->getUserTagNameById( $_SESSION['userId'] );
+			if( $sessionId && $this->securityModel->userWasInvitedToSession( $userTagName, $sessionId ) )
 			{
-				$this->userModel->changeInvitationStatus( $userEmail, $sessionId, 1 );
-				$this->sessionModel->acceptParticipant( $userEmail, $sessionId, $_SESSION['userId'] );
+				$this->userModel->changeInvitationStatus( $userTagName, $sessionId, 1 );
+				$this->sessionModel->acceptParticipant( $userTagName, $sessionId, $_SESSION['userId'] );
 			}
 
 			redirect( base_url( 'userSpace' ) );
@@ -169,11 +167,11 @@ class Authentication extends CI_Controller
 		if( isset( $_SESSION['userId'] ) && $_SESSION['userId'] )
 		{
 
-			$userEmail = $this->userModel->getUserEmailById( $_SESSION['userId'] );
-			if( $sessionId && $this->securityModel->userWasInvitedToSession( $userEmail, $sessionId ) )
+			$userTagName = $this->userModel->getUserTagNameById( $_SESSION['userId'] );
+			if( $sessionId && $this->securityModel->userWasInvitedToSession( $userTagName, $sessionId ) )
 			{
-				$this->userModel->changeInvitationStatus( $userEmail, $sessionId, 2 );
-				$this->sessionModel->removeParticipant( $userEmail, $sessionId );
+				$this->userModel->changeInvitationStatus( $userTagName, $sessionId, 2 );
+				$this->sessionModel->removeParticipant( $userTagName, $sessionId );
 				$this->sessionModel->updateParticipantCount( $sessionId, 0 );
 			}
 

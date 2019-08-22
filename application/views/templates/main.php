@@ -21,7 +21,8 @@
 			<br />
 		    <p class="foot">
 				iLeanbox 2017-<?=date( 'Y' )?>
-				<a class="homepage--admin-link" href="<?=base_url( 'adminLogin' )?>">&copy;</a>
+				<!-- <a class="homepage--admin-link" href="<?=base_url( 'adminLogin' )?>">&copy;</a> -->
+				&copy;
 				All rights reserved.
 			</p>
 		</footer>

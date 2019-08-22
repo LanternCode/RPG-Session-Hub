@@ -36,12 +36,12 @@ class userModel extends CI_Model
 
 	}
 
-	function registerNewUser( $username, $userTag, $email, $password )
+	function registerNewUser( $username, $userTag, $userTagName,  $email, $password )
 	{
 		$sql = "INSERT INTO users
-		( username, tag, email, password )
+		( username, tag, userTagName, email, password )
 		VALUES
-		( '$username', '$userTag', '$email', '$password')";
+		( '$username', '$userTag', '$userTagName', '$email', '$password')";
 
 		$this->db->simple_query( $sql );
 	}
@@ -85,10 +85,10 @@ class userModel extends CI_Model
 		else return 0;
 	}
 
-	function addInvite( $invitedEmail, $invitedSessionId )
+	function addInvite( $invitedUserTagName, $invitedSessionId )
 	{
-		$sql = "INSERT INTO invites( email, sessionId )VALUES( '$invitedEmail', $invitedSessionId )";
-		$query = $this->db->query( $sql );
+		$sql = "INSERT INTO invites( userTagName, sessionId )VALUES( '$invitedUserTagName', $invitedSessionId )";
+		$this->db->simple_query( $sql );
 	}
 
 	function sendEmailInvitation( $email, $sessionName, $GMName )
@@ -96,7 +96,7 @@ class userModel extends CI_Model
 		return;
 	}
 
-	function getUserInvitations( $userEmail )
+	function getUserInvitations( $userTagName )
 	{
 		$sql = "SELECT
 		i.sessionId,
@@ -107,7 +107,7 @@ class userModel extends CI_Model
 		ON i.sessionId = s.id
 		JOIN participants AS p
 		ON p.session_id = s.id
-		WHERE i.email = '$userEmail'
+		WHERE i.userTagName = '$userTagName'
 		AND p.rank = 1
 		AND i.status = 0
 		";
@@ -117,6 +117,7 @@ class userModel extends CI_Model
 
 	}
 
+	//Possibly not used anywhere within the code
 	function getUserEmailById( $userId )
 	{
 		$sql = "SELECT email FROM users WHERE id = $userId";
@@ -124,15 +125,15 @@ class userModel extends CI_Model
 		return $query->row()->email;
 	}
 
-	function getUserHangingInvitationId( $email, $sessionId )
+	function getUserHangingInvitationId( $userTagName, $sessionId )
 	{
-		$sql = "SELECT id FROM invites WHERE email='$email' AND sessionId = $sessionId AND status = 0";
+		$sql = "SELECT id FROM invites WHERE userTagName='$userTagName' AND sessionId = $sessionId AND status = 0";
 		return $this->db->query( $sql )->row()->id;
 	}
 
-	function changeInvitationStatus( $email, $sessionId, $status )
+	function changeInvitationStatus( $userTagName, $sessionId, $status )
 	{
-		$invitationId = $this->getUserHangingInvitationId( $email, $sessionId );
+		$invitationId = $this->getUserHangingInvitationId( $userTagName, $sessionId );
 
 		$sql = "UPDATE invites SET status = $status WHERE id = $invitationId";
 		$this->db->simple_query( $sql );
@@ -208,14 +209,25 @@ class userModel extends CI_Model
 
 	function generateUserTag( $username )
 	{
-		$userTagNo = 1;
-
-		$sql = "SELECT tag FROM users WHERE username = '$username' ORDER BY tag DESC LIMIT 1";
-		$query = $this->db->query( $sql );
-		if( isset( $query->row()->tag ) )
+		$tagTaken = 0;
+		$userTagNo = 0;
+		do
 		{
-			$userTagNo = $query->row()->tag + 1;
+			$userTagNo = rand(1, 9999);
+			$sql = "SELECT tag FROM users WHERE username = '$username'";
+			$query = $this->db->query( $sql );
+
+			if( isset( $query->result()->tag ) )
+			{
+				foreach( $query->result()->tag as $tag)
+				{
+					if( $tag === $userTagNo)
+						$tagTaken = 1;
+				}
+			}
+
 		}
+		while( $tagTaken === 1 );
 
 		$userTag = $this->fillUserTag( $userTagNo );
 
@@ -252,6 +264,20 @@ class userModel extends CI_Model
 			}
 		}
 		return $filledUserTag;
+	}
+
+	function getUserTagNameById( $userId )
+	{
+		$sql = "SELECT userTagName FROM users WHERE id = $userId";
+		$query = $this->db->query( $sql );
+		return $query->row()->userTagName;
+	}
+
+	function userTagNameExists( $userTagName )
+	{
+		$sql = "SELECT userTagName FROM users WHERE userTagName = '$userTagName'";
+		$query = $this->db->query( $sql );
+		return isset( $query->row()->userTagName ) ? 1 : 0;
 	}
 
 }

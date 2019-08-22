@@ -15,7 +15,7 @@
 
 <hr>
     <p class="userspace--createPrompt">
-        Do you want to create your own session? <a href="<?=base_url( 'createSession' )?>">Click here!</a>
+        Would you like to create your own session? <a href="<?=base_url( 'createSession' )?>">Click here!</a>
     </p>
 <hr>
 
@@ -66,7 +66,7 @@
                 <?php // <th class="userspace--sessions--header__item">Format</th> ?>
                 <th class="userspace--sessions--header__item">Game Master</th>
                 <th class="userspace--sessions--header__item">Player count</th>
-                <th class="userspace--sessions--header__item">Join the session</th>
+                <th class="userspace--sessions--header__item">Open the session</th>
                 <?php // <th class="userspace--sessions--header__item">Manage the session</th> ?>
             </tr>
             <?php

@@ -96,16 +96,18 @@ $this->load->helper( 'quote_helper' ); ?>
             </form>
         </div>
         <div id="addplayersform">
-
             <h2>Invite Players</h2><br />
             <form action="<?=base_url( 'userSpace/session/edit/newUser' )?>" method="POST">
-                <label>New player's email:</label><br />
-                <input type="text" name="addUserEmail" required /><br /><br />
+                <label>New player's username and tag:</label><br />
+                <input type="text" name="addUserTagName" placeholder="Ex. Sonic#0016" required /><br /><br />
 
                 <label>New player's avatar link:</label><br />
+                <label>If you leave this field empty, the avatar will be randomized.</label><br />
                 <input type="text" name="addUserAvatarLink" /><br /><br />
 
                 <label>New player's displayed name:</label><br />
+                <?php //TODO: Does this actually happen? ?>
+                <label>If you leave this field empty, the player's username will be used instead.</label><br />
                 <input type="text" name="addUserDisplayName" /><br /><br />
 
                 <input type="hidden" name="addUserSessionName" value="<?=$session->name?>" />
